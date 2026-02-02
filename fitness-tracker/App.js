@@ -4,8 +4,10 @@ import { StyleSheet, Text, View } from "react-native";
 export default function App() {
     return (
         <View style={styles.container}>
-            <Text>Fitness Tracker </Text>
-            <Text>Fitness Tracker </Text>
+            <Text>Fitness Tracker</Text>
+            <Text>Fitness Tracker</Text>
+            <Text>Fitness Tracker</Text>
+            <Text>Fitness Tracker</Text>
             <StatusBar style="auto" />
         </View>
     );
