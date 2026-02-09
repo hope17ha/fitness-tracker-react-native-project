@@ -10,7 +10,7 @@ export default function RootNavigation() {
     return (
        
                 <Stack.Navigator>
-                    <Stack.Screen name="Login Screen" component={LoginScreen} />
+                    <Stack.Screen name="Login Screen" component={LoginScreen} options={ { headerShown: false }}/>
                 </Stack.Navigator>
         
     );
