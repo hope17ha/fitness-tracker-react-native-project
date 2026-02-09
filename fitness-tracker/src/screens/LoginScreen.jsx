@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -10,8 +10,23 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { login } from "../services/authService";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loginHandler = async () => {
+        try {
+            
+            await login(email, password);
+            console.log('successful');
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -23,26 +38,33 @@ export default function LoginScreen() {
 
         <TextInput
           placeholder="Email"
+          value={email}
+          onChangeText={(text) => {
+            setEmail(text)}}
           placeholderTextColor="#999"
+          keyboardType="email-address"
           style={styles.input}
         />
 
         <TextInput
           placeholder="Password"
+          value={password}
+          onChangeText={(text) => {
+            setPassword(text)}}
           placeholderTextColor="#999"
           secureTextEntry
           style={styles.input}
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={loginHandler}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <Text style={styles.registerText}>
-            Don't have an account? Register
-          </Text>
+          <Text style={styles.registerText}>Don't have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
+            <Text style={styles.registerText}>Register</Text>
         </TouchableOpacity>
+      
       </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

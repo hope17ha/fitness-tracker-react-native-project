@@ -1,4 +1,10 @@
 {
-    "users":[],
-    "workouts":[]
+  "users": [
+    {
+      "email": "nadejda@abv.bg",
+      "password": "$2a$10$5kr5K.GNVZ3SFJMt0Zccqu43lI7KpMyzdhkA4gOfeDC2kP/gW5UWK",
+      "id": 1
+    }
+  ],
+  "workouts": []
 }
