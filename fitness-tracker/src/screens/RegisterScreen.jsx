@@ -1,0 +1,112 @@
+import React from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
+export default function RegisterScreen() {
+  return (
+    <SafeAreaProvider style={styles.safeArea}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.inner}>
+            <Text style={styles.title}>Create Account</Text>
+
+            <TextInput
+              placeholder="Full Name"
+              placeholderTextColor="#999"
+              style={styles.input}
+            />
+
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="#999"
+              style={styles.input}
+            />
+
+            <TextInput
+              placeholder="Password"
+              placeholderTextColor="#999"
+              secureTextEntry
+              style={styles.input}
+            />
+
+            <TextInput
+              placeholder="Confirm Password"
+              placeholderTextColor="#999"
+              secureTextEntry
+              style={styles.input}
+            />
+
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Register</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <Text style={styles.loginText}>
+                Already have an account? Login
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#0b1c2d",
+  },
+  container: {
+    flex: 1,
+  },
+  inner: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 24,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#fff",
+    textAlign: "center",
+    marginBottom: 40,
+  },
+  input: {
+    backgroundColor: "#1c2f44",
+    padding: 14,
+    borderRadius: 10,
+    color: "#fff",
+    marginBottom: 16,
+  },
+  button: {
+    backgroundColor: "#4caf50",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  loginText: {
+    color: "#aaa",
+    textAlign: "center",
+    marginTop: 20,
+  },
+});
