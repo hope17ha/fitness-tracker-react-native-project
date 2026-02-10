@@ -18,14 +18,14 @@ export default function LoginScreen({ navigation }) {
     const [password, setPassword] = useState('');
 
     const { login } = useAuth();
-    
+
     const loginHandler = async () => {
 
         try {
             
             await login(email, password);
             navigation.replace('TabNavigation');
-            console.log('successful');
+         
         } catch (error) {
             console.log(error);
         }

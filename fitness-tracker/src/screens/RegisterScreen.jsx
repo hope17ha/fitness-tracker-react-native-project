@@ -65,6 +65,7 @@ export default function RegisterScreen({ navigation }) {
                 setEmail(text);
               } }
               value={email}
+              keyboardType="email-address"
             />
 
             <TextInput
