@@ -11,6 +11,12 @@
       "password": "$2a$10$oY/CTyU1rUlTjUITHXbbIuTtSRzzPQpgYnQbJaue5rN6pH7ExTa5O",
       "username": "raya",
       "id": 2
+    },
+    {
+      "email": "Ndf@gh.he",
+      "password": "$2a$10$j1Qai7LxXi2Rw5cEvKPaYei/ojh3GhEQpwtjaX7FkMyfc7ixFXcwG",
+      "username": "Nadejda",
+      "id": 3
     }
   ],
   "workouts": []

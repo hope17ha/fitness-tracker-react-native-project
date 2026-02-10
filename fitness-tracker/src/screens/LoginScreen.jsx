@@ -10,17 +10,21 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { login } from "../services/authService";
+import { useAuth } from "../contexts/auth/useAuth";
 
 export default function LoginScreen({ navigation }) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { login } = useAuth();
+    
     const loginHandler = async () => {
+
         try {
             
             await login(email, password);
+            navigation.replace('TabNavigation');
             console.log('successful');
         } catch (error) {
             console.log(error);

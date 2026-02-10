@@ -4,19 +4,15 @@ import { StyleSheet } from "react-native";
 import { useAuth } from "../contexts/auth/useAuth";
 
 export default function SplashScreen({ navigation }) {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (user) {
-                navigation.replace("TabNavigation");
-            } else {
-                navigation.replace("Register Screen");
-            }
-        }, 2000);
+        if (!loading) {
+        
+          navigation.replace(user ? "TabNavigation" : "Register Screen");
+        }
+      }, [loading]);
 
-        return () => clearTimeout(timer);
-    }, []);
 
     return (
         <View style={styles.container}>
