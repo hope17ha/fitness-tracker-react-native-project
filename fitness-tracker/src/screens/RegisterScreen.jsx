@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,9 +11,24 @@ import {
   Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { login } from "../services/authService";
+import { register } from "../services/authService";
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }) {
+
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rePassword, setRePassword] = useState('')
+
+    const registerHandler = async () => {
+        try {
+            
+            await register(username, email, password);
+            console.log('successful');
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
   return (
     <SafeAreaView style={styles.safeArea} edges={["top"]}>
@@ -26,15 +41,23 @@ export default function RegisterScreen() {
             <Text style={styles.title}>Create Account</Text>
 
             <TextInput
-              placeholder="Full Name"
+              placeholder="Username"
               placeholderTextColor="#999"
               style={styles.input}
+              onChangeText={(text) => {
+                setUsername(text);
+              } }
+              value={username}
             />
 
             <TextInput
               placeholder="Email"
               placeholderTextColor="#999"
               style={styles.input}
+              onChangeText={(text) => {
+                setEmail(text);
+              } }
+              value={email}
             />
 
             <TextInput
@@ -42,6 +65,10 @@ export default function RegisterScreen() {
               placeholderTextColor="#999"
               secureTextEntry
               style={styles.input}
+              onChangeText={(text) => {
+                setPassword(text);
+              } }
+              value={password}
             />
 
             <TextInput
@@ -49,17 +76,20 @@ export default function RegisterScreen() {
               placeholderTextColor="#999"
               secureTextEntry
               style={styles.input}
+              onChangeText={(text) => {
+                setRePassword(text);
+              } }
+              value={rePassword}
             />
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={registerHandler}>
               <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-              <Text style={styles.loginText}>
-                Already have an account? Login
-              </Text>
-            </TouchableOpacity>
+            <Text style={styles.loginText}>Already have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login Screen')}>
+            <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

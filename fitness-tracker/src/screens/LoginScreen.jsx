@@ -11,6 +11,7 @@ import {
   Keyboard,
 } from "react-native";
 import { login } from "../services/authService";
+import { api } from "../services/api";
 
 export default function LoginScreen({ navigation }) {
 
@@ -26,6 +27,8 @@ export default function LoginScreen({ navigation }) {
             console.log(error);
         }
     }
+
+    
 
   return (
     <KeyboardAvoidingView
