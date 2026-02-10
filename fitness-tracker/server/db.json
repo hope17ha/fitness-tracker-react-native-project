@@ -1,16 +1,16 @@
 {
   "users": [
     {
-      "email": "raya@abv.bg",
-      "password": "$2a$10$pP9KVYP5ayeL2kELdgWmpunHyfZCxZRcb.ddXK7YChvbKZZMo.D1C",
-      "fullname": "Raya",
-      "id": 2
+      "email": "nadejda@abv.bg",
+      "password": "$2a$10$2rl9XiBLIXqCSonXhsR0AOR1NmCYFniEUWprZWd3PpMAu8Y65s7HG",
+      "username": "Nadejda",
+      "id": 1
     },
     {
-      "email": "Raya@abv.bg",
-      "password": "$2a$10$VC5FPeyA/ScpJnHpH3z9yOxT.Z0UBrZk1tsi8LXC9bKtpxOHlLdAG",
-      "fullname": "Raya",
-      "id": 3
+      "email": "raya@abv.bg",
+      "password": "$2a$10$oY/CTyU1rUlTjUITHXbbIuTtSRzzPQpgYnQbJaue5rN6pH7ExTa5O",
+      "username": "raya",
+      "id": 2
     }
   ],
   "workouts": []

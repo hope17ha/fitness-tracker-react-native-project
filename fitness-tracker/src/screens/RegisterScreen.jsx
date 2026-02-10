@@ -12,19 +12,26 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { register } from "../services/authService";
+import { useAuth } from "../contexts/auth/useAuth";
 
 export default function RegisterScreen({ navigation }) {
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [rePassword, setRePassword] = useState('')
+    const [rePassword, setRePassword] = useState('');
+
+    const { login } = useAuth();
 
     const registerHandler = async () => {
         try {
             
             await register(username, email, password);
-            console.log('successful');
+
+            await login(email, password); 
+            navigation.replace("TabNavigation");
+           
+        
         } catch (error) {
             console.log(error);
         }
