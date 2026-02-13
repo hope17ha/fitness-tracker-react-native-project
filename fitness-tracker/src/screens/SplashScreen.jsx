@@ -1,17 +1,7 @@
-import { useEffect } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import { StyleSheet } from "react-native";
-import { useAuth } from "../contexts/auth/useAuth";
 
-export default function SplashScreen({ navigation }) {
-    const { user, loading } = useAuth();
-
-    useEffect(() => {
-        if (!loading) {
-        
-          navigation.replace(user ? "TabNavigation" : "Register Screen");
-        }
-      }, [loading]);
+export default function SplashScreen() {
 
 
     return (

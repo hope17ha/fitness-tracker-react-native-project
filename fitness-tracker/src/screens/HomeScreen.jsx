@@ -7,7 +7,6 @@ export default function HomeScreen({ navigation }) {
 
   const logoutHandler = () => {
     logout();
-    navigation.replace("Login Screen");
   };
 
   return (

@@ -24,7 +24,6 @@ export default function LoginScreen({ navigation }) {
         try {
             
             await login(email, password);
-            navigation.replace('TabNavigation');
          
         } catch (error) {
             console.log(error);

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { createContext, useEffect, useState } from "react"
+import { createContext, use, useEffect, useState } from "react"
 import { authService } from "../../services";
 
 export const AuthContext = createContext();
@@ -52,6 +52,7 @@ export function AuthProvider ({children}){
     const contextValue = {
         user,
         token,
+        isAuthenticated: !!user,
         login,
         logout,
         loading
