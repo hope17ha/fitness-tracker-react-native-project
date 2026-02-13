@@ -1,37 +1,58 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import HomeScreen from '../screens/HomeScreen';
-import AddWorkoutScreen from '../screens/AddWorkoutScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import HomeScreen from "../screens/HomeScreen";
+import AddWorkoutScreen from "../screens/MyWorkoutsScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import MyWorkoutsScreen from "../screens/MyWorkoutsScreen";
+import CatalogScreen from "../screens/CatalogScreen";
 
-export default function TabNavigation(){
-
-
+export default function TabNavigation() {
     const Tab = createBottomTabNavigator();
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Home"
-                        component={HomeScreen}
-                        options={{
-                            title: "Home",
-                            tabBarIcon: ({ color, size }) => <Ionicons name="home" size={size} color={color} />,
-                            headerShown: false
-                        }} />
-            <Tab.Screen name="Add workout"
-                        component={AddWorkoutScreen}
-                        options={{
-                            title: "Add workout",
-                            tabBarIcon: ({ color, size }) => <Ionicons name="barbell" size={size} color={color} />,
-                            headerShown: false
-                        }} />
-            <Tab.Screen name="Profile" 
-                        component={ProfileScreen}
-                        options={{
-                            title: "Profile",
-                            tabBarIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
-                            headerShown: false
-                        }} />
+            <Tab.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                    title: "Home",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="home" size={size} color={color} />
+                    ),
+                    headerShown: false,
+                }}
+            />
+            <Tab.Screen
+                name="Catalog"
+                component={CatalogScreen}
+                options={{
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="book" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="My Workouts"
+                component={MyWorkoutsScreen}
+                options={{
+                    title: "My Workouts",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="barbell" size={size} color={color} />
+                    ),
+                    headerShown: false,
+                }}
+            />
+            <Tab.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{
+                    title: "Profile",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="person" size={size} color={color} />
+                    ),
+                    headerShown: false,
+                }}
+            />
         </Tab.Navigator>
     );
 }
