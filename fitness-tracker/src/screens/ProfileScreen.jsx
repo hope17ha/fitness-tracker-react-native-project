@@ -8,13 +8,9 @@ import {
 } from "react-native";
 import { useAuth } from "../contexts/auth/useAuth";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
 
     const { user, logout } = useAuth();
-
-    useEffect(() => {
-        console.log(user);
-    }, []);
 
     const logoutHandler = () => {
         logout();
@@ -54,7 +50,7 @@ export default function ProfileScreen() {
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Security</Text>
 
-          <TouchableOpacity style={styles.actionRow}>
+          <TouchableOpacity style={styles.actionRow} onPress={() => navigation.navigate('Change Password Screen')}>
             <Text style={styles.actionText}>Change password</Text>
           </TouchableOpacity>
         </View>

@@ -10,6 +10,7 @@ export default function AuthNavigation() {
         <Stack.Navigator>
             <Stack.Screen name='Login Screen' component={ LoginScreen } /> 
             <Stack.Screen name='Register Screen' component={ RegisterScreen } /> 
+
         </Stack.Navigator>
 
     );

@@ -1,10 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
-import AddWorkoutScreen from "../screens/MyWorkoutsScreen";
-import ProfileScreen from "../screens/ProfileScreen";
 import MyWorkoutsScreen from "../screens/MyWorkoutsScreen";
 import CatalogScreen from "../screens/CatalogScreen";
+import ProfileNavigation from "./ProfileNavigation";
 
 export default function TabNavigation() {
     const Tab = createBottomTabNavigator();
@@ -44,9 +43,9 @@ export default function TabNavigation() {
             />
             <Tab.Screen
                 name="Profile"
-                component={ProfileScreen}
+                component={ProfileNavigation}
                 options={{
-                    title: "Profile",
+                    title: "ProfileNavigation",
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="person" size={size} color={color} />
                     ),
