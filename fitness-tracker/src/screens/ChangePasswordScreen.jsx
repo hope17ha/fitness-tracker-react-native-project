@@ -29,14 +29,11 @@ export default function ChangePasswordScreen({ navigation }) {
 
 
         try {
-
                 await login(user.email, password);
                 await changePassword(user.id, newPassword);
                 navigation.goBack();
-            }
-            
-         catch (error) {
-            setError('Current password is incorrect!');
+            } catch (error) {
+            setError('Current password is incorrect!' || error );
         }
     };
 

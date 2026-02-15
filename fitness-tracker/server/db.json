@@ -17,6 +17,12 @@
       "password": "$2a$10$M5D205Ax4NLjxMGqbs8e2OFbSYy91t5bHBV3jOK7nIqiRsyb/7QUS",
       "username": "Nadejda",
       "id": 4
+    },
+    {
+      "email": "koni@abv.bg",
+      "password": "$2a$10$ezZ472a4w0p0e.x7mLA0c.kFluW3QQDnhlF4AdvdfqE.CKAZ8aH8S",
+      "username": "Koni",
+      "id": 5
     }
   ],
   "workouts": []
