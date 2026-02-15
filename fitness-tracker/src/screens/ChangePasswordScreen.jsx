@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { changePassword, login } from "../services/authService";
 import { useAuth } from "../contexts/auth/useAuth";
+import { validatePassword } from "../helpers/validations";
 
 export default function ChangePasswordScreen({ navigation }) {
     const [newPassword, setNewPassword] = useState("");
@@ -21,12 +22,13 @@ export default function ChangePasswordScreen({ navigation }) {
     const { user } = useAuth();
 
     const changePasswordHandler = async () => {
-        setError(null);
-
-        if (newPassword !== reNewPassword) {
-            return setError("Passwords need to match!");
-        }
-
+        const validationError = validatePassword({
+            password: newPassword,
+            rePassword: reNewPassword
+          });
+          
+          if (validationError) 
+            return setError(validationError);
 
         try {
                 await login(user.email, password);
