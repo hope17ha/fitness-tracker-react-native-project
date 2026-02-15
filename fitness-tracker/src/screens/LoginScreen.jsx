@@ -16,17 +16,20 @@ export default function LoginScreen({ navigation }) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
+    const [error, setError] = useState(null);
 
     const { login } = useAuth();
 
     const loginHandler = async () => {
 
+        setError(null);
         try {
             
             await login(email, password);
          
         } catch (error) {
-            console.log(error);
+            setError('Something went wrong. Try again!')
         }
     }
 
@@ -45,7 +48,8 @@ export default function LoginScreen({ navigation }) {
           placeholder="Email"
           value={email}
           onChangeText={(text) => {
-            setEmail(text)}}
+            setEmail(text)
+            setError(null)}}
           placeholderTextColor="#999"
           keyboardType="email-address"
           style={styles.input}
@@ -55,12 +59,15 @@ export default function LoginScreen({ navigation }) {
           placeholder="Password"
           value={password}
           onChangeText={(text) => {
-            setPassword(text)}}
+            setPassword(text)
+            setError(null)}}
           placeholderTextColor="#999"
           secureTextEntry
           style={styles.input}
         />
 
+            
+        {error && <Text style={styles.error}>{error}</Text>}
         <TouchableOpacity style={styles.button} onPress={loginHandler}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
@@ -123,4 +130,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 20,
   },
+  error: {
+    color: "#ff5252",
+    textAlign: "center",
+    marginBottom: 12,
+    fontWeight: "600",
+},
 });
