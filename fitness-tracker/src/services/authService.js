@@ -11,3 +11,9 @@ export async function register(username, email, password) {
 
     return result.data;
 }
+
+export async function changePassword(userId, newPassword) {
+    const result = await api.patch(`/users/${userId}`, { password: newPassword });
+
+    return result.data;
+}

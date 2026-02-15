@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,38 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { changePassword } from "../services/authService";
+import { useAuth } from "../contexts/auth/useAuth";
 
-export default function ChangePasswordScreen() {
+export default function ChangePasswordScreen({ navigation }) {
+
+    const [newPassword, setNewPassword] = useState('');
+    const [reNewPassword, setReNewPassword] = useState('');
+    const [error, setError] = useState(null);
+
+    const { user } = useAuth();
+
+
+    const changePasswordHandler = async () => {
+
+        try {
+
+            if (newPassword === reNewPassword){
+
+                await changePassword(user.id, newPassword);
+                navigation.replace('Profile Screen');
+            } else {
+                setError('Passwords need to match!')
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+
+    };
+
+
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -30,6 +60,10 @@ export default function ChangePasswordScreen() {
           placeholderTextColor="#999"
           secureTextEntry
           style={styles.input}
+          onChangeText={(text) => {
+            setNewPassword(text)
+          }}
+          value={newPassword}
         />
 
         <TextInput
@@ -37,9 +71,13 @@ export default function ChangePasswordScreen() {
           placeholderTextColor="#999"
           secureTextEntry
           style={styles.input}
+          onChangeText={(text) => {
+            setReNewPassword(text)
+          }}
+          value={reNewPassword}
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={changePasswordHandler}>
           <Text style={styles.buttonText}>Save Password</Text>
         </TouchableOpacity>
       </View>
