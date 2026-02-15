@@ -22,17 +22,19 @@ export default function ChangePasswordScreen({ navigation }) {
 
     const changePasswordHandler = async () => {
 
+        setError(null);
+
         try {
 
             if (newPassword === reNewPassword){
 
                 await changePassword(user.id, newPassword);
-                navigation.replace('Profile Screen');
+                navigation.goBack();
             } else {
                 setError('Passwords need to match!')
             }
         } catch (error) {
-            console.log(error);
+            setError("Something went wrong. Try again.", error);
         }
 
 
@@ -62,6 +64,7 @@ export default function ChangePasswordScreen({ navigation }) {
           style={styles.input}
           onChangeText={(text) => {
             setNewPassword(text)
+            setError(null)
           }}
           value={newPassword}
         />
@@ -73,9 +76,13 @@ export default function ChangePasswordScreen({ navigation }) {
           style={styles.input}
           onChangeText={(text) => {
             setReNewPassword(text)
+            setError(null)
           }}
+          
           value={reNewPassword}
         />
+
+    {error && <Text style={styles.error}>{error}</Text>}
 
         <TouchableOpacity style={styles.button} onPress={changePasswordHandler}>
           <Text style={styles.buttonText}>Save Password</Text>
@@ -126,4 +133,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+
+  error: {
+    color: "#ff5252",
+    textAlign: "center",
+    marginBottom: 12,
+    fontWeight: "600",
+  },
+  
 });
