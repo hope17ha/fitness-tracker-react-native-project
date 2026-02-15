@@ -8,8 +8,8 @@ export default function AuthNavigation() {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name='Login Screen' component={ LoginScreen } /> 
-            <Stack.Screen name='Register Screen' component={ RegisterScreen } /> 
+            <Stack.Screen name='Login Screen' component={ LoginScreen } options={{ headerShown: false }} /> 
+            <Stack.Screen name='Register Screen' component={ RegisterScreen } options={{ headerShown: false }} /> 
 
         </Stack.Navigator>
 
