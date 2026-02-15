@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -6,18 +6,33 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { useAuth } from "../contexts/auth/useAuth";
 
 export default function ProfileScreen() {
+
+    const { user, logout } = useAuth();
+
+    useEffect(() => {
+        console.log(user);
+    }, []);
+
+    const logoutHandler = () => {
+        logout();
+    }
+
   return (
+
+
+
     <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.avatar}>
-          <Text style={styles.avatarText}>R</Text>
+          <Text style={styles.avatarText}>{user.username[0]}</Text>
         </View>
 
-        <Text style={styles.username}>Raya</Text>
-        <Text style={styles.email}>raya@abv.bg</Text>
+        <Text style={styles.username}>{user.username}</Text>
+        <Text style={styles.email}>{user.email}</Text>
       </View>
 
       {/* Info cards */}
@@ -27,12 +42,12 @@ export default function ProfileScreen() {
 
           <View style={styles.row}>
             <Text style={styles.label}>Username</Text>
-            <Text style={styles.value}>Raya</Text>
+            <Text style={styles.value}>{user.username}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.label}>Email</Text>
-            <Text style={styles.value}>raya@abv.bg</Text>
+            <Text style={styles.value}>{user.email}</Text>
           </View>
         </View>
 
@@ -45,7 +60,7 @@ export default function ProfileScreen() {
         </View>
 
         <View style={styles.card}>
-          <TouchableOpacity style={styles.logoutButton}>
+          <TouchableOpacity style={styles.logoutButton} onPress={logoutHandler}>
             <Text style={styles.logoutText}>Logout</Text>
           </TouchableOpacity>
         </View>
