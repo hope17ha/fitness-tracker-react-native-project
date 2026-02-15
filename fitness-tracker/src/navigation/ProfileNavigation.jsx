@@ -8,8 +8,8 @@ export default function ProfileNavigation() {
 
     return (
         <Stack.Navigator>
-            <Stack.Screen name='Profile Screen' component={ ProfileScreen } /> 
-            <Stack.Screen name='Change Password Screen' component={ ChangePasswordScreen } /> 
+            <Stack.Screen name='Profile Screen' component={ ProfileScreen } options={{ headerShown: false }} /> 
+            <Stack.Screen name='Change Password Screen' component={ ChangePasswordScreen } options={{ headerShown: false }}  /> 
 
         </Stack.Navigator>
 

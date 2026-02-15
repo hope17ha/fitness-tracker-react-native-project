@@ -45,7 +45,7 @@ export default function TabNavigation() {
                 name="Profile"
                 component={ProfileNavigation}
                 options={{
-                    title: "ProfileNavigation",
+                    title: "Profile",
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="person" size={size} color={color} />
                     ),
