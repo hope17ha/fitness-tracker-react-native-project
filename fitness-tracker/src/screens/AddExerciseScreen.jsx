@@ -12,7 +12,6 @@ import { catalogService } from "../services";
 import { useAuth } from "../contexts/auth/useAuth";
 
 export default function AddExerciseScreen({ navigation }) {
-
     const { user } = useAuth();
 
     const [name, setName] = useState("");
@@ -32,44 +31,49 @@ export default function AddExerciseScreen({ navigation }) {
     const EQUIPMENT = ["barbell", "dumbbell", "machine", "cable", "bodyweight"];
 
     const handleSave = async () => {
+        if (!name.trim())
+            return Alert.alert("Missing name", "Please enter exercise name.");
+        if (!muscleGroupId)
+            return Alert.alert("Missing group", "Please select muscle group.");
+        if (!equipment)
+            return Alert.alert("Missing equipment", "Please select equipment.");
 
-        if (!name.trim()) return Alert.alert("Missing name", "Please enter exercise name.");
-        if (!muscleGroupId) return Alert.alert("Missing group", "Please select muscle group.");
-        if (!equipment) return Alert.alert("Missing equipment", "Please select equipment.");
+        try {
+            console.log({
+                name,
+                muscleGroupId,
+                equipment,
+                imageUrl,
+            });
 
-    try {
-        console.log({
-          name,
-          muscleGroupId,
-          equipment,
-          imageUrl,
-        });
-      
-        await catalogService.createExercise({
-          name,
-          muscleGroupId,
-          equipment,
-          imageUrl,
-          userId: user.id,
-        });
-        navigation.goBack(); 
-      } catch(error){
-        Alert.alert("Error", "Could not create exercise.");
-        console.log(error);
-      }
+            await catalogService.createExercise({
+                name,
+                muscleGroupId,
+                equipment,
+                imageUrl,
+                userId: user.id,
+            });
+            navigation.goBack();
+        } catch (error) {
+            Alert.alert("Error", "Could not create exercise.");
+            console.log(error);
+        }
     };
-      
 
     return (
         <ScrollView style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
-                <TouchableOpacity style={styles.backBtn}>
+                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
                     <Text style={styles.backText}>←</Text>
                 </TouchableOpacity>
 
-                <Text style={styles.title}>Add Exercise</Text>
-                <Text style={styles.subtitle}>Create your own exercise</Text>
+                <View style={styles.headerText}>
+                    <Text style={styles.title}>Add Exercise</Text>
+                    <Text style={styles.subtitle}>
+                        Create your own exercise
+                    </Text>
+                </View>
             </View>
 
             {/* Form */}
@@ -94,12 +98,17 @@ export default function AddExerciseScreen({ navigation }) {
                                 padding: 14,
                                 borderRadius: 12,
                                 backgroundColor:
-                                    muscleGroupId === group.id ? "#4caf50" : "#13263a",
+                                    muscleGroupId === group.id
+                                        ? "#4caf50"
+                                        : "#13263a",
                             }}
                         >
                             <Text
                                 style={{
-                                    color: muscleGroupId === group.id ? "#fff" : "#aaa",
+                                    color:
+                                        muscleGroupId === group.id
+                                            ? "#fff"
+                                            : "#aaa",
                                     fontWeight: "bold",
                                 }}
                             >
@@ -109,61 +118,67 @@ export default function AddExerciseScreen({ navigation }) {
                     ))}
                 </View>
 
-        {/* Equipment (UI picker placeholder) */ }
-        <Text style={styles.label}>Equipment</Text>
-        <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
-  {EQUIPMENT.map((item) => (
-    <TouchableOpacity
-      key={item}
-      onPress={() => setEquipment(item)}
-      style={{
-        paddingVertical: 8,
-        paddingHorizontal: 12,
-        borderRadius: 999,
-        backgroundColor: equipment === item ? "#4caf50" : "#13263a",
-      }}
-    >
-      <Text style={{ color: "#fff" }}>{item}</Text>
-    </TouchableOpacity>
-  ))}
-</View>
+                {/* Equipment (UI picker placeholder) */}
+                <Text style={styles.label}>Equipment</Text>
+                <View
+                    style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}
+                >
+                    {EQUIPMENT.map((item) => (
+                        <TouchableOpacity
+                            key={item}
+                            onPress={() => setEquipment(item)}
+                            style={{
+                                paddingVertical: 8,
+                                paddingHorizontal: 12,
+                                borderRadius: 999,
+                                backgroundColor:
+                                    equipment === item ? "#4caf50" : "#13263a",
+                            }}
+                        >
+                            <Text style={{ color: "#fff" }}>{item}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
 
+                {/* Image URL */}
+                <Text style={styles.label}>Image URL</Text>
+                <TextInput
+                    placeholder="https://..."
+                    placeholderTextColor="#777"
+                    style={styles.input}
+                    value={imageUrl}
+                    onChangeText={setImageUrl}
+                />
+                <Text style={styles.helper}>
+                    Optional. You can add a real image later.
+                </Text>
 
-    {/* Image URL */ }
-        <Text style={styles.label}>Image URL</Text>
-        <TextInput
-          placeholder="https://..."
-          placeholderTextColor="#777"
-          style={styles.input}
-          value={imageUrl}
-          onChangeText={setImageUrl}
-        />
-        <Text style={styles.helper}>
-          Optional. You can add a real image later.
-        </Text>
+                {/* Preview block (UI only) */}
+                <View style={styles.preview}>
+                    <Text style={styles.previewTitle}>Preview</Text>
+                    <View style={styles.previewImage} />
+                    <Text style={styles.previewHint}>
+                        Image preview placeholder
+                    </Text>
+                </View>
 
-    {/* Preview block (UI only) */ }
-    <View style={styles.preview}>
-        <Text style={styles.previewTitle}>Preview</Text>
-        <View style={styles.previewImage} />
-        <Text style={styles.previewHint}>Image preview placeholder</Text>
-    </View>
+                {/* Actions */}
+                <TouchableOpacity
+                    style={styles.primaryBtn}
+                    onPress={handleSave}
+                >
+                    <Text style={styles.primaryBtnText}>Save Exercise</Text>
+                </TouchableOpacity>
 
-    {/* Actions */ }
-        <TouchableOpacity style={styles.primaryBtn} onPress={handleSave}>
-          <Text style={styles.primaryBtnText}>Save Exercise</Text>
-        </TouchableOpacity>
+                <TouchableOpacity style={styles.secondaryBtn} onPress={() => navigation.goBack()}>
+                    <Text style={styles.secondaryBtnText}>Cancel</Text>
+                </TouchableOpacity>
+            </View>
 
-        <TouchableOpacity style={styles.secondaryBtn}>
-          <Text style={styles.secondaryBtnText}>Cancel</Text>
-        </TouchableOpacity>
-      </View >
-
-        <View style={{ height: 40 }} />
-    </ScrollView >
-  );
+            <View style={{ height: 40 }} />
+        </ScrollView>
+    );
 }
-
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: "#0b1c2d" },
@@ -174,7 +189,10 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         backgroundColor: "#1c2f44",
     },
-
+    headerText: {
+        paddingLeft: 52, // 40 (бутон) + 12 spacing
+      },
+      
     backBtn: {
         position: "absolute",
         left: 24,
