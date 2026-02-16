@@ -8,7 +8,7 @@ import {
   TextInput,
 } from "react-native";
 
-export default function CatalogScreen() {
+export default function CatalogScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
@@ -32,7 +32,7 @@ export default function CatalogScreen() {
       <Text style={styles.sectionTitle}>Muscle groups</Text>
 
       <View style={styles.grid}>
-        <TouchableOpacity style={styles.groupCard}>
+        <TouchableOpacity style={styles.groupCard} onPress={() => navigation.navigate('ExerciseListScreen')}>
           <Text style={styles.groupEmoji}>🏋️</Text>
           <Text style={styles.groupTitle}>Chest</Text>
         </TouchableOpacity>
