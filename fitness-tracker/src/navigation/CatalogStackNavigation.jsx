@@ -9,8 +9,8 @@ const Stack = createNativeStackNavigator();
 export default function CatalogStackNavigation() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="CatalogScreen" component={CatalogScreen} />
-      <Stack.Screen name="ExerciseListScreen" component={ExerciseListScreen} />
+      <Stack.Screen name="CatalogScreen" component={CatalogScreen} options={{headerShown: false}} />
+      <Stack.Screen name="ExerciseListScreen" component={ExerciseListScreen} options={{headerShown: false}}/>
     </Stack.Navigator>
   );
 }

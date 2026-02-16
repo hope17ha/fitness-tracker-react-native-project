@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,8 +7,20 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { catalogService } from "../services";
 
 export default function CatalogScreen({ navigation }) {
+
+    const [exercises, setExercises] = useState([]);
+
+    useEffect(() => {
+        async function load() {
+          const data = await catalogService.getAllExercises();
+          setExercises(data);
+        }
+        load();
+      }, []);
+
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
@@ -20,13 +32,13 @@ export default function CatalogScreen({ navigation }) {
       </View>
 
       {/* Search */}
-      <View style={styles.searchWrapper}>
+      {/* <View style={styles.searchWrapper}>
         <TextInput
           placeholder="Search exercises..."
           placeholderTextColor="#777"
           style={styles.searchInput}
         />
-      </View>
+      </View> */}
 
       {/* Muscle groups */}
       <Text style={styles.sectionTitle}>Muscle groups</Text>
@@ -96,12 +108,15 @@ export default function CatalogScreen({ navigation }) {
       {/* All exercises (static preview UI) */}
       <Text style={styles.sectionTitle}>All exercises</Text>
 
-      <TouchableOpacity style={styles.exerciseCard}>
-        <Text style={styles.exerciseName}>Barbell Bench Press</Text>
-        <Text style={styles.exerciseMeta}>Chest • Barbell</Text>
-      </TouchableOpacity>
+      {exercises?.map((exercise => (
 
-      <TouchableOpacity style={styles.exerciseCard}>
+      <TouchableOpacity style={styles.exerciseCard} key={exercise.id}>
+        <Text style={styles.exerciseName}>{exercise.name}</Text>
+        <Text style={styles.exerciseMeta}>{exercise.muscleGroupId} • {exercise.equipment}</Text>
+      </TouchableOpacity>
+      )))}
+
+      {/* <TouchableOpacity style={styles.exerciseCard}>
         <Text style={styles.exerciseName}>Pull Up</Text>
         <Text style={styles.exerciseMeta}>Back • Bodyweight</Text>
       </TouchableOpacity>
@@ -124,7 +139,7 @@ export default function CatalogScreen({ navigation }) {
       <TouchableOpacity style={styles.exerciseCard}>
         <Text style={styles.exerciseName}>Plank</Text>
         <Text style={styles.exerciseMeta}>Core • Bodyweight</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {/* Bottom spacing */}
       <View style={{ height: 40 }} />

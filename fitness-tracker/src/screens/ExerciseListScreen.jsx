@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+
 import { catalogService } from "../services";
 
 export default function ExerciseListScreen({ navigation, route }) {

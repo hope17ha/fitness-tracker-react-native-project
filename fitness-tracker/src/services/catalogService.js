@@ -5,3 +5,9 @@ export async function getExercisesByMuscleGroup(muscleGroupId){
 
     return result.data;
 }
+
+export async function getAllExercises() {
+    const result = await api.get("/exercises");
+    return result.data;
+  }
+  

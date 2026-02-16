@@ -28,6 +28,7 @@ export default function TabNavigation() {
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="book" size={size} color={color} />
                     ),
+                    headerShown: false,
                 }}
             />
             <Tab.Screen
