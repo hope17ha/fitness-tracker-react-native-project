@@ -1,654 +1,700 @@
 {
-    "users": [
+  "users": [
+    {
+      "email": "raya@abv.bg",
+      "password": "$2a$10$mAEvjeoZNMAvkSNJCAM23uOxb.Z6HO75gR1C/MKK7b/yVBwkiwfAW",
+      "username": "Raya",
+      "id": 2
+    },
+    {
+      "email": "nadejda@abv.bg",
+      "password": "$2a$10$M5D205Ax4NLjxMGqbs8e2OFbSYy91t5bHBV3jOK7nIqiRsyb/7QUS",
+      "username": "Nadejda",
+      "id": 4
+    },
+    {
+      "email": "koni@abv.bg",
+      "password": "$2a$10$ezZ472a4w0p0e.x7mLA0c.kFluW3QQDnhlF4AdvdfqE.CKAZ8aH8S",
+      "username": "Koni",
+      "id": 5
+    }
+  ],
+  "muscleGroups": [
+    {
+      "id": "chest",
+      "name": "Chest",
+      "icon": "🏋️"
+    },
+    {
+      "id": "back",
+      "name": "Back",
+      "icon": "🦍"
+    },
+    {
+      "id": "legs",
+      "name": "Legs",
+      "icon": "🦵"
+    },
+    {
+      "id": "shoulders",
+      "name": "Shoulders",
+      "icon": "🏹"
+    },
+    {
+      "id": "arms",
+      "name": "Arms",
+      "icon": "💪"
+    },
+    {
+      "id": "core",
+      "name": "Core",
+      "icon": "🔥"
+    }
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "name": "Barbell Bench Press",
+      "muscleGroupId": "chest",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Bench+Press",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Incline Barbell Press",
+      "muscleGroupId": "chest",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Incline+Barbell",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "Decline Bench Press",
+      "muscleGroupId": "chest",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Decline+Press",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Dumbbell Bench Press",
+      "muscleGroupId": "chest",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=DB+Bench",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "name": "Incline Dumbbell Press",
+      "muscleGroupId": "chest",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=Incline+DB",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "name": "Machine Chest Press",
+      "muscleGroupId": "chest",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Machine+Press",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "name": "Cable Fly",
+      "muscleGroupId": "chest",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=Cable+Fly",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "name": "Pec Deck Fly",
+      "muscleGroupId": "chest",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Pec+Deck",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 9,
+      "name": "Push Ups",
+      "muscleGroupId": "chest",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Push+Ups",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "name": "Dips (Chest Focus)",
+      "muscleGroupId": "chest",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Dips+Chest",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 11,
+      "name": "Pull Up",
+      "muscleGroupId": "back",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Pull+Up",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 12,
+      "name": "Chin Up",
+      "muscleGroupId": "back",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Chin+Up",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 13,
+      "name": "Lat Pulldown",
+      "muscleGroupId": "back",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Lat+Pulldown",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 14,
+      "name": "Seated Cable Row",
+      "muscleGroupId": "back",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=Cable+Row",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 15,
+      "name": "Barbell Row",
+      "muscleGroupId": "back",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Barbell+Row",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 16,
+      "name": "Dumbbell Row",
+      "muscleGroupId": "back",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=DB+Row",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 17,
+      "name": "T-Bar Row",
+      "muscleGroupId": "back",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=T-Bar+Row",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 18,
+      "name": "Straight-Arm Pulldown",
+      "muscleGroupId": "back",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=Straight-Arm+Pulldown",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 19,
+      "name": "Face Pull",
+      "muscleGroupId": "back",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=Face+Pull",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 20,
+      "name": "Back Extension",
+      "muscleGroupId": "back",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Back+Extension",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 21,
+      "name": "Back Squat",
+      "muscleGroupId": "legs",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Back+Squat",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 22,
+      "name": "Front Squat",
+      "muscleGroupId": "legs",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Front+Squat",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 23,
+      "name": "Leg Press",
+      "muscleGroupId": "legs",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Leg+Press",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 24,
+      "name": "Hack Squat",
+      "muscleGroupId": "legs",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Hack+Squat",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 25,
+      "name": "Romanian Deadlift",
+      "muscleGroupId": "legs",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=RDL",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 26,
+      "name": "Deadlift",
+      "muscleGroupId": "legs",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Deadlift",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 27,
+      "name": "Leg Extension",
+      "muscleGroupId": "legs",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Leg+Extension",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 28,
+      "name": "Leg Curl",
+      "muscleGroupId": "legs",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Leg+Curl",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 29,
+      "name": "Bulgarian Split Squat",
+      "muscleGroupId": "legs",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=Bulgarian+Split+Squat",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 30,
+      "name": "Walking Lunges",
+      "muscleGroupId": "legs",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=Walking+Lunges",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 31,
+      "name": "Hip Thrust",
+      "muscleGroupId": "legs",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Hip+Thrust",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 32,
+      "name": "Calf Raise (Standing)",
+      "muscleGroupId": "legs",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Standing+Calf+Raise",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 33,
+      "name": "Calf Raise (Seated)",
+      "muscleGroupId": "legs",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Seated+Calf+Raise",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 34,
+      "name": "Overhead Press",
+      "muscleGroupId": "shoulders",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=OHP",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 35,
+      "name": "Dumbbell Shoulder Press",
+      "muscleGroupId": "shoulders",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=DB+Shoulder+Press",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 36,
+      "name": "Arnold Press",
+      "muscleGroupId": "shoulders",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=Arnold+Press",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 37,
+      "name": "Lateral Raise",
+      "muscleGroupId": "shoulders",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=Lateral+Raise",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 38,
+      "name": "Cable Lateral Raise",
+      "muscleGroupId": "shoulders",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=Cable+Lateral+Raise",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 39,
+      "name": "Rear Delt Fly",
+      "muscleGroupId": "shoulders",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Rear+Delt+Fly",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 40,
+      "name": "Front Raise",
+      "muscleGroupId": "shoulders",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=Front+Raise",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 41,
+      "name": "Upright Row",
+      "muscleGroupId": "shoulders",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Upright+Row",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 42,
+      "name": "Barbell Curl",
+      "muscleGroupId": "arms",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Barbell+Curl",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 43,
+      "name": "Dumbbell Curl",
+      "muscleGroupId": "arms",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=DB+Curl",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 44,
+      "name": "Hammer Curl",
+      "muscleGroupId": "arms",
+      "equipment": "dumbbell",
+      "imageUrl": "https://placehold.co/600x400?text=Hammer+Curl",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 45,
+      "name": "Preacher Curl",
+      "muscleGroupId": "arms",
+      "equipment": "machine",
+      "imageUrl": "https://placehold.co/600x400?text=Preacher+Curl",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 46,
+      "name": "Cable Curl",
+      "muscleGroupId": "arms",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=Cable+Curl",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 47,
+      "name": "Triceps Pushdown",
+      "muscleGroupId": "arms",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=Triceps+Pushdown",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 48,
+      "name": "Overhead Triceps Extension",
+      "muscleGroupId": "arms",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=OH+Triceps+Ext",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 49,
+      "name": "Skull Crushers",
+      "muscleGroupId": "arms",
+      "equipment": "barbell",
+      "imageUrl": "https://placehold.co/600x400?text=Skull+Crushers",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 50,
+      "name": "Dips (Triceps Focus)",
+      "muscleGroupId": "arms",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Dips+Triceps",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 51,
+      "name": "Plank",
+      "muscleGroupId": "core",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Plank",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 52,
+      "name": "Side Plank",
+      "muscleGroupId": "core",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Side+Plank",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 53,
+      "name": "Hanging Leg Raise",
+      "muscleGroupId": "core",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Hanging+Leg+Raise",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 54,
+      "name": "Cable Crunch",
+      "muscleGroupId": "core",
+      "equipment": "cable",
+      "imageUrl": "https://placehold.co/600x400?text=Cable+Crunch",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 55,
+      "name": "Russian Twist",
+      "muscleGroupId": "core",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Russian+Twist",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 56,
+      "name": "Ab Wheel Rollout",
+      "muscleGroupId": "core",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Ab+Wheel",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 57,
+      "name": "Dead Bug",
+      "muscleGroupId": "core",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Dead+Bug",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "id": 58,
+      "name": "Crunches",
+      "muscleGroupId": "core",
+      "equipment": "bodyweight",
+      "imageUrl": "https://placehold.co/600x400?text=Crunches",
+      "createdByUserId": null,
+      "createdAt": "2026-02-15T00:00:00.000Z",
+      "updatedAt": "2026-02-15T00:00:00.000Z"
+    },
+    {
+      "name": "Squats",
+      "muscleGroupId": "legs",
+      "equipment": "machine",
+      "imageUrl": null,
+      "createdByUserId": 2,
+      "createdAt": "2026-02-16T16:40:54.144Z",
+      "updatedAt": "2026-02-16T16:40:54.144Z",
+      "id": 59
+    }
+  ],
+  "workouts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Leg day",
+      "type": "session",
+      "status": "done",
+      "createdAt": "2026-02-15T10:00:00.000Z",
+      "updatedAt": "2026-02-15T11:05:00.000Z",
+      "startedAt": "2026-02-15T10:10:00.000Z",
+      "finishedAt": "2026-02-15T11:05:00.000Z",
+      "exercises": [
         {
-            "email": "raya@abv.bg",
-            "password": "$2a$10$mAEvjeoZNMAvkSNJCAM23uOxb.Z6HO75gR1C/MKK7b/yVBwkiwfAW",
-            "username": "Raya",
-            "id": 2
+          "id": "wex1",
+          "exerciseId": 21,
+          "order": 1,
+          "sets": [
+            {
+              "set": 1,
+              "reps": 8,
+              "weight": 80
+            },
+            {
+              "set": 2,
+              "reps": 8,
+              "weight": 80
+            },
+            {
+              "set": 3,
+              "reps": 6,
+              "weight": 85
+            }
+          ]
         },
         {
-            "email": "nadejda@abv.bg",
-            "password": "$2a$10$M5D205Ax4NLjxMGqbs8e2OFbSYy91t5bHBV3jOK7nIqiRsyb/7QUS",
-            "username": "Nadejda",
-            "id": 4
-        },
-        {
-            "email": "koni@abv.bg",
-            "password": "$2a$10$ezZ472a4w0p0e.x7mLA0c.kFluW3QQDnhlF4AdvdfqE.CKAZ8aH8S",
-            "username": "Koni",
-            "id": 5
+          "id": "wex2",
+          "exerciseId": 27,
+          "order": 2,
+          "sets": [
+            {
+              "set": 1,
+              "reps": 12,
+              "weight": 4
+            },
+            {
+              "set": 2,
+              "reps": 12,
+              "weight": 4
+            }
+          ]
         }
-    ],
-
-    "muscleGroups": [
-        { "id": "chest", "name": "Chest", "icon": "🏋️" },
-        { "id": "back", "name": "Back", "icon": "🦍" },
-        { "id": "legs", "name": "Legs", "icon": "🦵" },
-        { "id": "shoulders", "name": "Shoulders", "icon": "🏹" },
-        { "id": "arms", "name": "Arms", "icon": "💪" },
-        { "id": "core", "name": "Core", "icon": "🔥" }
-    ],
-
-    "exercises": [
-        {
-            "id": 1,
-            "name": "Barbell Bench Press",
-            "muscleGroupId": "chest",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Bench+Press",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 2,
-            "name": "Incline Barbell Press",
-            "muscleGroupId": "chest",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Incline+Barbell",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 3,
-            "name": "Decline Bench Press",
-            "muscleGroupId": "chest",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Decline+Press",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 4,
-            "name": "Dumbbell Bench Press",
-            "muscleGroupId": "chest",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=DB+Bench",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 5,
-            "name": "Incline Dumbbell Press",
-            "muscleGroupId": "chest",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=Incline+DB",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 6,
-            "name": "Machine Chest Press",
-            "muscleGroupId": "chest",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Machine+Press",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 7,
-            "name": "Cable Fly",
-            "muscleGroupId": "chest",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=Cable+Fly",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 8,
-            "name": "Pec Deck Fly",
-            "muscleGroupId": "chest",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Pec+Deck",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 9,
-            "name": "Push Ups",
-            "muscleGroupId": "chest",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Push+Ups",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 10,
-            "name": "Dips (Chest Focus)",
-            "muscleGroupId": "chest",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Dips+Chest",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-
-        {
-            "id": 11,
-            "name": "Pull Up",
-            "muscleGroupId": "back",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Pull+Up",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 12,
-            "name": "Chin Up",
-            "muscleGroupId": "back",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Chin+Up",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 13,
-            "name": "Lat Pulldown",
-            "muscleGroupId": "back",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Lat+Pulldown",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 14,
-            "name": "Seated Cable Row",
-            "muscleGroupId": "back",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=Cable+Row",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 15,
-            "name": "Barbell Row",
-            "muscleGroupId": "back",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Barbell+Row",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 16,
-            "name": "Dumbbell Row",
-            "muscleGroupId": "back",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=DB+Row",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 17,
-            "name": "T-Bar Row",
-            "muscleGroupId": "back",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=T-Bar+Row",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 18,
-            "name": "Straight-Arm Pulldown",
-            "muscleGroupId": "back",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=Straight-Arm+Pulldown",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 19,
-            "name": "Face Pull",
-            "muscleGroupId": "back",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=Face+Pull",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 20,
-            "name": "Back Extension",
-            "muscleGroupId": "back",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Back+Extension",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-
-        {
-            "id": 21,
-            "name": "Back Squat",
-            "muscleGroupId": "legs",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Back+Squat",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 22,
-            "name": "Front Squat",
-            "muscleGroupId": "legs",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Front+Squat",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 23,
-            "name": "Leg Press",
-            "muscleGroupId": "legs",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Leg+Press",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 24,
-            "name": "Hack Squat",
-            "muscleGroupId": "legs",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Hack+Squat",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 25,
-            "name": "Romanian Deadlift",
-            "muscleGroupId": "legs",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=RDL",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 26,
-            "name": "Deadlift",
-            "muscleGroupId": "legs",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Deadlift",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 27,
-            "name": "Leg Extension",
-            "muscleGroupId": "legs",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Leg+Extension",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 28,
-            "name": "Leg Curl",
-            "muscleGroupId": "legs",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Leg+Curl",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 29,
-            "name": "Bulgarian Split Squat",
-            "muscleGroupId": "legs",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=Bulgarian+Split+Squat",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 30,
-            "name": "Walking Lunges",
-            "muscleGroupId": "legs",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=Walking+Lunges",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 31,
-            "name": "Hip Thrust",
-            "muscleGroupId": "legs",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Hip+Thrust",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 32,
-            "name": "Calf Raise (Standing)",
-            "muscleGroupId": "legs",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Standing+Calf+Raise",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 33,
-            "name": "Calf Raise (Seated)",
-            "muscleGroupId": "legs",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Seated+Calf+Raise",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-
-        {
-            "id": 34,
-            "name": "Overhead Press",
-            "muscleGroupId": "shoulders",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=OHP",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 35,
-            "name": "Dumbbell Shoulder Press",
-            "muscleGroupId": "shoulders",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=DB+Shoulder+Press",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 36,
-            "name": "Arnold Press",
-            "muscleGroupId": "shoulders",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=Arnold+Press",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 37,
-            "name": "Lateral Raise",
-            "muscleGroupId": "shoulders",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=Lateral+Raise",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 38,
-            "name": "Cable Lateral Raise",
-            "muscleGroupId": "shoulders",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=Cable+Lateral+Raise",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 39,
-            "name": "Rear Delt Fly",
-            "muscleGroupId": "shoulders",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Rear+Delt+Fly",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 40,
-            "name": "Front Raise",
-            "muscleGroupId": "shoulders",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=Front+Raise",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 41,
-            "name": "Upright Row",
-            "muscleGroupId": "shoulders",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Upright+Row",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-
-        {
-            "id": 42,
-            "name": "Barbell Curl",
-            "muscleGroupId": "arms",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Barbell+Curl",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 43,
-            "name": "Dumbbell Curl",
-            "muscleGroupId": "arms",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=DB+Curl",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 44,
-            "name": "Hammer Curl",
-            "muscleGroupId": "arms",
-            "equipment": "dumbbell",
-            "imageUrl": "https://placehold.co/600x400?text=Hammer+Curl",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 45,
-            "name": "Preacher Curl",
-            "muscleGroupId": "arms",
-            "equipment": "machine",
-            "imageUrl": "https://placehold.co/600x400?text=Preacher+Curl",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 46,
-            "name": "Cable Curl",
-            "muscleGroupId": "arms",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=Cable+Curl",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 47,
-            "name": "Triceps Pushdown",
-            "muscleGroupId": "arms",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=Triceps+Pushdown",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 48,
-            "name": "Overhead Triceps Extension",
-            "muscleGroupId": "arms",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=OH+Triceps+Ext",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 49,
-            "name": "Skull Crushers",
-            "muscleGroupId": "arms",
-            "equipment": "barbell",
-            "imageUrl": "https://placehold.co/600x400?text=Skull+Crushers",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 50,
-            "name": "Dips (Triceps Focus)",
-            "muscleGroupId": "arms",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Dips+Triceps",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-
-        {
-            "id": 51,
-            "name": "Plank",
-            "muscleGroupId": "core",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Plank",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 52,
-            "name": "Side Plank",
-            "muscleGroupId": "core",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Side+Plank",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 53,
-            "name": "Hanging Leg Raise",
-            "muscleGroupId": "core",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Hanging+Leg+Raise",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 54,
-            "name": "Cable Crunch",
-            "muscleGroupId": "core",
-            "equipment": "cable",
-            "imageUrl": "https://placehold.co/600x400?text=Cable+Crunch",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 55,
-            "name": "Russian Twist",
-            "muscleGroupId": "core",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Russian+Twist",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 56,
-            "name": "Ab Wheel Rollout",
-            "muscleGroupId": "core",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Ab+Wheel",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 57,
-            "name": "Dead Bug",
-            "muscleGroupId": "core",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Dead+Bug",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        },
-        {
-            "id": 58,
-            "name": "Crunches",
-            "muscleGroupId": "core",
-            "equipment": "bodyweight",
-            "imageUrl": "https://placehold.co/600x400?text=Crunches",
-            "createdByUserId": null,
-            "createdAt": "2026-02-15T00:00:00.000Z",
-            "updatedAt": "2026-02-15T00:00:00.000Z"
-        }
-    ],
-
-    "workouts": [
-        {
-            "id": 1,
-            "userId": 1,
-            "title": "Leg day",
-            "type": "session",
-            "status": "done",
-            "createdAt": "2026-02-15T10:00:00.000Z",
-            "updatedAt": "2026-02-15T11:05:00.000Z",
-            "startedAt": "2026-02-15T10:10:00.000Z",
-            "finishedAt": "2026-02-15T11:05:00.000Z",
-            "exercises": [
-                {
-                    "id": "wex1",
-                    "exerciseId": 21,
-                    "order": 1,
-                    "sets": [
-                        { "set": 1, "reps": 8, "weight": 80 },
-                        { "set": 2, "reps": 8, "weight": 80 },
-                        { "set": 3, "reps": 6, "weight": 85 }
-                    ]
-                },
-                {
-                    "id": "wex2",
-                    "exerciseId": 27,
-                    "order": 2,
-                    "sets": [
-                        { "set": 1, "reps": 12, "weight": 4 },
-                        { "set": 2, "reps": 12, "weight": 4 }
-                    ]
-                }
-            ]
-        }
-    ]
+      ]
+    }
+  ]
 }

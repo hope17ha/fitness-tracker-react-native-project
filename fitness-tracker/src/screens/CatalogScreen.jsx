@@ -13,6 +13,7 @@ export default function CatalogScreen({ navigation }) {
 
     const [exercises, setExercises] = useState([]);
 
+    //TODO: pagination + loader
     useEffect(() => {
         async function load() {
           const data = await catalogService.getAllExercises();

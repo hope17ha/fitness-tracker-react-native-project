@@ -15,7 +15,7 @@ export default function ExerciseListScreen({ navigation, route }) {
 
     const [exercises, setExercises] = useState([]);
 
-
+ //TODO: loader
 
     useEffect(() => {
   async function load() {
@@ -92,7 +92,7 @@ export default function ExerciseListScreen({ navigation, route }) {
         <Text style={styles.emptyText}>
           Add your own exercise later (UI placeholder).
         </Text>
-        <TouchableOpacity style={styles.emptyBtn}>
+        <TouchableOpacity style={styles.emptyBtn} onPress={() => navigation.navigate('AddExerciseScreen')}>
           <Text style={styles.emptyBtnText}>+ Create exercise</Text>
         </TouchableOpacity>
       </View>
