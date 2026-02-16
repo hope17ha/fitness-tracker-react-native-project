@@ -32,32 +32,62 @@ export default function CatalogScreen({ navigation }) {
       <Text style={styles.sectionTitle}>Muscle groups</Text>
 
       <View style={styles.grid}>
-        <TouchableOpacity style={styles.groupCard} onPress={() => navigation.navigate('ExerciseListScreen')}>
+        <TouchableOpacity style={styles.groupCard} onPress={() =>
+        navigation.navigate("ExerciseListScreen", {
+          muscleGroupId: "chest",
+          title: "Chest",
+        })
+      }>
           <Text style={styles.groupEmoji}>🏋️</Text>
           <Text style={styles.groupTitle}>Chest</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.groupCard}>
+        <TouchableOpacity style={styles.groupCard} onPress={() =>
+        navigation.navigate("ExerciseListScreen", {
+          muscleGroupId: "back",
+          title: "Back",
+        })
+      }>
           <Text style={styles.groupEmoji}>🦍</Text>
           <Text style={styles.groupTitle}>Back</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.groupCard}>
+        <TouchableOpacity style={styles.groupCard} onPress={() =>
+        navigation.navigate("ExerciseListScreen", {
+          muscleGroupId: "legs",
+          title: "Legs",
+        })
+      }>
           <Text style={styles.groupEmoji}>🦵</Text>
           <Text style={styles.groupTitle}>Legs</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.groupCard}>
+        <TouchableOpacity style={styles.groupCard} onPress={() =>
+        navigation.navigate("ExerciseListScreen", {
+          muscleGroupId: "shoulders",
+          title: "Shoulders",
+        })
+      }>
           <Text style={styles.groupEmoji}>🏹</Text>
           <Text style={styles.groupTitle}>Shoulders</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.groupCard}>
+        <TouchableOpacity style={styles.groupCard} onPress={() =>
+        navigation.navigate("ExerciseListScreen", {
+          muscleGroupId: "arms",
+          title: "Arms",
+        })
+      }>
           <Text style={styles.groupEmoji}>💪</Text>
           <Text style={styles.groupTitle}>Arms</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.groupCard}>
+        <TouchableOpacity style={styles.groupCard} onPress={() =>
+        navigation.navigate("ExerciseListScreen", {
+          muscleGroupId: "core",
+          title: "Core",
+        })
+      }>
           <Text style={styles.groupEmoji}>🔥</Text>
           <Text style={styles.groupTitle}>Core</Text>
         </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,22 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import { catalogService } from "../services";
 
 export default function ExerciseListScreen({ navigation, route }) {
-  const title = route?.params?.title || "Exercises";
+    const { muscleGroupId, title } = route.params || {};
+
+    const [exercises, setExercises] = useState([]);
+
+
+
+    useEffect(() => {
+  async function load() {
+    const data = await catalogService.getExercisesByMuscleGroup(muscleGroupId);
+    setExercises(data);
+  }
+  load();
+}, [muscleGroupId]);
 
   return (
     <ScrollView style={styles.container}>
@@ -53,13 +66,14 @@ export default function ExerciseListScreen({ navigation, route }) {
 
       {/* List */}
       <Text style={styles.sectionTitle}>Results</Text>
+    {exercises.map((exercise => (
 
-      <TouchableOpacity style={styles.exerciseCard}>
+      <TouchableOpacity style={styles.exerciseCard} key={exercise.id}>
         <View style={styles.exerciseLeft}>
           <View style={styles.thumb} />
           <View>
-            <Text style={styles.exerciseName}>Barbell Bench Press</Text>
-            <Text style={styles.exerciseMeta}>Chest • Barbell</Text>
+            <Text style={styles.exerciseName}>{exercise.name}</Text>
+            <Text style={styles.exerciseMeta}>{exercise.muscleGroupId} • {exercise.equipment}</Text>
           </View>
         </View>
 
@@ -67,64 +81,11 @@ export default function ExerciseListScreen({ navigation, route }) {
           <Text style={styles.chev}>›</Text>
         </View>
       </TouchableOpacity>
+    )))}
 
-      <TouchableOpacity style={styles.exerciseCard}>
-        <View style={styles.exerciseLeft}>
-          <View style={styles.thumb} />
-          <View>
-            <Text style={styles.exerciseName}>Incline Dumbbell Press</Text>
-            <Text style={styles.exerciseMeta}>Chest • Dumbbell</Text>
-          </View>
-        </View>
+     
 
-        <View style={styles.exerciseRight}>
-          <Text style={styles.chev}>›</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.exerciseCard}>
-        <View style={styles.exerciseLeft}>
-          <View style={styles.thumb} />
-          <View>
-            <Text style={styles.exerciseName}>Cable Fly</Text>
-            <Text style={styles.exerciseMeta}>Chest • Cable</Text>
-          </View>
-        </View>
-
-        <View style={styles.exerciseRight}>
-          <Text style={styles.chev}>›</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.exerciseCard}>
-        <View style={styles.exerciseLeft}>
-          <View style={styles.thumb} />
-          <View>
-            <Text style={styles.exerciseName}>Push Ups</Text>
-            <Text style={styles.exerciseMeta}>Chest • Bodyweight</Text>
-          </View>
-        </View>
-
-        <View style={styles.exerciseRight}>
-          <Text style={styles.chev}>›</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.exerciseCard}>
-        <View style={styles.exerciseLeft}>
-          <View style={styles.thumb} />
-          <View>
-            <Text style={styles.exerciseName}>Dips</Text>
-            <Text style={styles.exerciseMeta}>Chest • Bodyweight</Text>
-          </View>
-        </View>
-
-        <View style={styles.exerciseRight}>
-          <Text style={styles.chev}>›</Text>
-        </View>
-      </TouchableOpacity>
-
-      {/* Empty state preview (UI only) */}
+    
       <View style={styles.emptyBox}>
         <Text style={styles.emptyTitle}>Can’t find it?</Text>
         <Text style={styles.emptyText}>
