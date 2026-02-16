@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { useAuth } from "../contexts/auth/useAuth";
+import CatalogScreen from "./CatalogScreen";
 
 export default function HomeScreen({ navigation }) {
   const { user, logout } = useAuth();
@@ -31,7 +32,9 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.sectionTitle}>Quick actions</Text>
 
       <View style={styles.row}>
-        <TouchableOpacity style={styles.smallCard}>
+        <TouchableOpacity style={styles.smallCard} onPress={() => {
+           navigation.navigate('Catalog')
+        }}>
           <Text style={styles.emoji}>📚</Text>
           <Text style={styles.cardTitle}>Catalog</Text>
         </TouchableOpacity>
