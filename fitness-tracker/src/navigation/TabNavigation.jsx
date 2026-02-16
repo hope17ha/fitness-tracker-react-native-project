@@ -2,8 +2,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
 import MyWorkoutsScreen from "../screens/MyWorkoutsScreen";
-import CatalogScreen from "../screens/CatalogScreen";
 import ProfileNavigation from "./ProfileNavigation";
+import CatalogStackNavigation from "./CatalogStackNavigation";
 
 export default function TabNavigation() {
     const Tab = createBottomTabNavigator();
@@ -23,7 +23,7 @@ export default function TabNavigation() {
             />
             <Tab.Screen
                 name="Catalog"
-                component={CatalogScreen}
+                component={CatalogStackNavigation}
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="book" size={size} color={color} />
