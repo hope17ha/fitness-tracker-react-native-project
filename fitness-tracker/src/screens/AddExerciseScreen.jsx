@@ -39,12 +39,6 @@ export default function AddExerciseScreen({ navigation }) {
             return Alert.alert("Missing equipment", "Please select equipment.");
 
         try {
-            console.log({
-                name,
-                muscleGroupId,
-                equipment,
-                imageUrl,
-            });
 
             await catalogService.createExercise({
                 name,

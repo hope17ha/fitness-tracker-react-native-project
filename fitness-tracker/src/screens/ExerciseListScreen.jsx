@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+
 import {
     View,
     Text,
@@ -18,23 +20,27 @@ export default function ExerciseListScreen({ navigation, route }) {
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        async function load() {
-            setLoading(true);
-            try {
-                const data = await catalogService.getExercisesByMuscleGroup(
-                    muscleGroupId
-                );
-                setExercises(data);
-            } catch (error) {
-                Alert.alert("Error fetching exercises. Try again!");
-            } finally {
-                setLoading(false);
-            }
+    async function load() {
+        setLoading(true);
+        try {
+            const data = await catalogService.getExercisesByMuscleGroup(
+                muscleGroupId
+            );
+            setExercises(data);
+        } catch (error) {
+            Alert.alert("Error fetching exercises. Try again!");
+        } finally {
+            setLoading(false);
         }
-        load();
-    }, [muscleGroupId]);
-
+        };
+    
+        useFocusEffect(
+            useCallback(() => {
+              load();
+            }, [muscleGroupId])
+          );
+          
+        
     return (
         <ScrollView style={styles.container}>
             {/* Header */}

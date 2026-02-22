@@ -42,7 +42,7 @@ export default function HomeScreen({ navigation }) {
         <TouchableOpacity style={styles.smallCard}>
           <Text style={styles.emoji}>💪</Text>
           <Text style={styles.cardTitle}>My Workouts</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>cdf
       </View>
 
       <TouchableOpacity style={styles.createCard}>
