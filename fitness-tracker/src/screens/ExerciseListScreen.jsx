@@ -17,9 +17,10 @@ import { useAuth } from "../contexts/auth/useAuth";
 
 export default function ExerciseListScreen({ navigation, route }) {
     const { muscleGroupId, title } = route.params || {};
-    
+
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedEquipment, setSelectedEquipment] = useState("all");
 
     async function load() {
         setLoading(true);
@@ -33,20 +34,29 @@ export default function ExerciseListScreen({ navigation, route }) {
         } finally {
             setLoading(false);
         }
-        };
-    
-        useFocusEffect(
-            useCallback(() => {
-              load();
-            }, [muscleGroupId])
-          );
-          
-        
+    }
+
+    useFocusEffect(
+        useCallback(() => {
+            setSelectedEquipment("all");
+
+            load();
+        }, [muscleGroupId])
+    );
+
+    const filteredExercises =
+        selectedEquipment === "all"
+            ? exercises
+            : exercises.filter((e) => e.equipment === selectedEquipment);
+
     return (
         <ScrollView style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
-                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                <TouchableOpacity
+                    style={styles.backBtn}
+                    onPress={() => navigation.goBack()}
+                >
                     <Text style={styles.backText}>←</Text>
                 </TouchableOpacity>
 
@@ -65,42 +75,141 @@ export default function ExerciseListScreen({ navigation, route }) {
                 />
             </View>
 
-            {/* Filters row (UI only) */}
             <View style={styles.filterRow}>
-                <TouchableOpacity style={styles.filterChipActive}>
-                    <Text style={styles.filterChipTextActive}>All</Text>
+                <TouchableOpacity
+                    style={
+                        selectedEquipment === "all"
+                            ? styles.filterChipActive
+                            : styles.filterChip
+                    }
+                    onPress={() => setSelectedEquipment("all")}
+                >
+                    <Text
+                        style={
+                            selectedEquipment === "all"
+                                ? styles.filterChipTextActive
+                                : styles.filterChipText
+                        }
+                    >
+                        All
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterChip}>
-                    <Text style={styles.filterChipText}>Barbell</Text>
+
+                <TouchableOpacity
+                    style={
+                        selectedEquipment === "barbell"
+                            ? styles.filterChipActive
+                            : styles.filterChip
+                    }
+                    onPress={() => setSelectedEquipment("barbell")}
+                >
+                    <Text
+                        style={
+                            selectedEquipment === "barbell"
+                                ? styles.filterChipTextActive
+                                : styles.filterChipText
+                        }
+                    >
+                        Barbell
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterChip}>
-                    <Text style={styles.filterChipText}>Dumbbell</Text>
+
+                <TouchableOpacity
+                    style={
+                        selectedEquipment === "dumbbell"
+                            ? styles.filterChipActive
+                            : styles.filterChip
+                    }
+                    onPress={() => setSelectedEquipment("dumbbell")}
+                >
+                    <Text
+                        style={
+                            selectedEquipment === "dumbbell"
+                                ? styles.filterChipTextActive
+                                : styles.filterChipText
+                        }
+                    >
+                        Dumbbell
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterChip}>
-                    <Text style={styles.filterChipText}>Machine</Text>
+
+                <TouchableOpacity
+                    style={
+                        selectedEquipment === "machine"
+                            ? styles.filterChipActive
+                            : styles.filterChip
+                    }
+                    onPress={() => setSelectedEquipment("machine")}
+                >
+                    <Text
+                        style={
+                            selectedEquipment === "machine"
+                                ? styles.filterChipTextActive
+                                : styles.filterChipText
+                        }
+                    >
+                        Machine
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterChip}>
-                    <Text style={styles.filterChipText}>Cable</Text>
+
+                <TouchableOpacity
+                    style={
+                        selectedEquipment === "cable"
+                            ? styles.filterChipActive
+                            : styles.filterChip
+                    }
+                    onPress={() => setSelectedEquipment("cable")}
+                >
+                    <Text
+                        style={
+                            selectedEquipment === "cable"
+                                ? styles.filterChipTextActive
+                                : styles.filterChipText
+                        }
+                    >
+                        Cable
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={
+                        selectedEquipment === "bodyweight"
+                            ? styles.filterChipActive
+                            : styles.filterChip
+                    }
+                    onPress={() => setSelectedEquipment("bodyweight")}
+                >
+                    <Text
+                        style={
+                            selectedEquipment === "bodyweight"
+                                ? styles.filterChipTextActive
+                                : styles.filterChipText
+                        }
+                    >
+                        Bodyweight
+                    </Text>
                 </TouchableOpacity>
             </View>
+
             {loading && (
-  <View style={styles.loaderBox}>
-    <ActivityIndicator size="large" color="#4caf50" />
-    <Text style={styles.loaderText}>Loading exercises...</Text>
-  </View>
-)}
+                <View style={styles.loaderBox}>
+                    <ActivityIndicator size="large" color="#4caf50" />
+                    <Text style={styles.loaderText}>Loading exercises...</Text>
+                </View>
+            )}
 
             {/* List */}
             <Text style={styles.sectionTitle}>Results</Text>
             {!loading &&
-                exercises.map((exercise) => (
+                filteredExercises.map((exercise) => (
                     <TouchableOpacity
                         style={styles.exerciseCard}
                         key={exercise.id}
-                        onPress={() => navigation.navigate('ExerciseDetailsScreen',
-                    {
-                        exerciseId: exercise.id
-                    })}
+                        onPress={() =>
+                            navigation.navigate("ExerciseDetailsScreen", {
+                                exerciseId: exercise.id,
+                            })
+                        }
                     >
                         <View style={styles.exerciseLeft}>
                             <View style={styles.thumb} />
@@ -150,8 +259,7 @@ const styles = StyleSheet.create({
     },
     headerText: {
         paddingLeft: 52, // 40 (бутон) + ~12 spacing
-      },
-      
+    },
 
     backBtn: {
         position: "absolute",
@@ -305,12 +413,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#102235",
         alignItems: "center",
         justifyContent: "center",
-      },
-      
-      loaderText: {
+    },
+
+    loaderText: {
         marginTop: 10,
         color: "#777",
         fontSize: 12,
-      },
-      
+    },
 });
