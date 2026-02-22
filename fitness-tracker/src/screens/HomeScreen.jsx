@@ -39,7 +39,9 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.cardTitle}>Catalog</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.smallCard}>
+        <TouchableOpacity style={styles.smallCard} onPress={() => {
+           navigation.navigate('My Workouts')
+        }}>
           <Text style={styles.emoji}>💪</Text>
           <Text style={styles.cardTitle}>My Workouts</Text>
         </TouchableOpacity>cdf
