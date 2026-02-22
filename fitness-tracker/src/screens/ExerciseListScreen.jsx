@@ -13,12 +13,14 @@ import {
 } from "react-native";
 
 import { catalogService } from "../services";
+import { useAuth } from "../contexts/auth/useAuth";
 
 export default function ExerciseListScreen({ navigation, route }) {
     const { muscleGroupId, title } = route.params || {};
-
+    
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { user } = useAuth();
 
     async function load() {
         setLoading(true);
@@ -96,7 +98,14 @@ export default function ExerciseListScreen({ navigation, route }) {
                     <TouchableOpacity
                         style={styles.exerciseCard}
                         key={exercise.id}
-                        onPress={() => navigation.navigate('ExerciseDetailsScreen')}
+                        onPress={() => navigation.navigate('ExerciseDetailsScreen',
+                    {
+                        name: exercise.name,
+                        equipment: exercise.equipment,
+                        muscleGroupId: exercise.muscleGroupId,
+                        image: exercise.imageUrl,
+                        userId: user.id,
+                    })}
                     >
                         <View style={styles.exerciseLeft}>
                             <View style={styles.thumb} />

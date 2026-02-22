@@ -1,20 +1,29 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 
-export default function ExerciseDetailsScreen({ navigation }) {
+export default function ExerciseDetailsScreen({ navigation, route}) {
+
+    const { name, equipment, muscleGroupId, imageUrl, userId } = route.params || {};
+
+
+    function capitalize(value) {
+        if (!value) return "-";
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      }
+
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn}>
+        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
           <Text style={styles.backText}>←</Text>
         </TouchableOpacity>
 
         <View style={styles.headerText}>
           <Text style={styles.title} numberOfLines={1}>
-            Barbell Bench Press
+            {name}
           </Text>
-          <Text style={styles.subtitle}>Chest • Barbell</Text>
+          <Text style={styles.subtitle}>{capitalize(muscleGroupId)} • {capitalize(equipment)}</Text>
         </View>
       </View>
 
@@ -28,12 +37,12 @@ export default function ExerciseDetailsScreen({ navigation }) {
       <View style={styles.infoRow}>
         <View style={styles.infoCard}>
           <Text style={styles.infoLabel}>Muscle group</Text>
-          <Text style={styles.infoValue}>Chest</Text>
+          <Text style={styles.infoValue}>{capitalize(muscleGroupId)}</Text>
         </View>
 
         <View style={styles.infoCard}>
           <Text style={styles.infoLabel}>Equipment</Text>
-          <Text style={styles.infoValue}>Barbell</Text>
+          <Text style={styles.infoValue}>{capitalize(equipment)}</Text>
         </View>
       </View>
 
@@ -46,6 +55,7 @@ export default function ExerciseDetailsScreen({ navigation }) {
     </ScrollView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#0b1c2d" },
