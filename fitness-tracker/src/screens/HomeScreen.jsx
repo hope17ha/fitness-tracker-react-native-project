@@ -5,10 +5,11 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView,
+    ActivityIndicator
 } from "react-native";
 import { useAuth } from "../contexts/auth/useAuth";
 import { workoutService } from "../services";
-import { formatDate, minutesBetween } from "../helpers/mathFunctions";
+import { formatDate, minutesBetween } from "../helpers/dateHelpers";
 
 export default function HomeScreen({ navigation }) {
     const { user, logout } = useAuth();
@@ -98,7 +99,12 @@ export default function HomeScreen({ navigation }) {
 
             {/* Last workout */}
             <Text style={styles.sectionTitle}>Last workout</Text>
-
+            {loading && (
+                <View style={styles.loaderBox}>
+                    <ActivityIndicator size="large" color="#4caf50" />
+                    <Text style={styles.loaderText}>Loading workouts...</Text>
+                </View>
+            )}
             <View style={styles.lastWorkout}>
                 <Text style={styles.lastName}>{workout.title}</Text>
                 <Text style={styles.lastMeta}>
@@ -220,5 +226,20 @@ const styles = StyleSheet.create({
     motivationText: {
         color: "#aaa",
         textAlign: "center",
+    },
+    loaderBox: {
+        marginTop: 18,
+        marginHorizontal: 24,
+        paddingVertical: 22,
+        borderRadius: 14,
+        backgroundColor: "#102235",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    loaderText: {
+        marginTop: 10,
+        color: "#777",
+        fontSize: 12,
     },
 });

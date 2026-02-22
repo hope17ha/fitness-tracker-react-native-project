@@ -13,7 +13,7 @@ import {
     formatDate,
     formatTimeHHMM,
     minutesBetween,
-} from "../helpers/mathFunctions";
+} from "../helpers/dateHelpers";
 
 export default function WorkoutDetailsScreen({ navigation, route }) {
     const workoutId = route?.params?.workoutId;

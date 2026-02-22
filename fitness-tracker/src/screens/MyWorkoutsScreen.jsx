@@ -6,6 +6,7 @@ import {
     ScrollView,
     TouchableOpacity,
     Alert,
+    ActivityIndicator
 } from "react-native";
 import { workoutService } from "../services";
 import { useAuth } from "../contexts/auth/useAuth";
@@ -13,7 +14,7 @@ import {
     formatDate,
     formatTimeHHMM,
     minutesBetween,
-} from "../helpers/mathFunctions";
+} from "../helpers/dateHelpers";
 
 export default function MyWorkoutsScreen({ navigation }) {
     const [workouts, setWorkouts] = useState([]);
@@ -66,7 +67,15 @@ export default function MyWorkoutsScreen({ navigation }) {
 
             <Text style={styles.sectionTitle}>Workouts</Text>
 
-            {workouts.map((workout) => {
+
+            {loading && (
+                <View style={styles.loaderBox}>
+                    <ActivityIndicator size="large" color="#4caf50" />
+                    <Text style={styles.loaderText}>Loading workouts...</Text>
+                </View>
+            )}
+
+            {!loading && workouts.map((workout) => {
                 const mins = minutesBetween(
                     workout.startedAt,
                     workout.finishedAt
@@ -262,4 +271,19 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     fabText: { color: "#fff", fontSize: 28, fontWeight: "bold", marginTop: -1 },
+    loaderBox: {
+        marginTop: 18,
+        marginHorizontal: 24,
+        paddingVertical: 22,
+        borderRadius: 14,
+        backgroundColor: "#102235",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    loaderText: {
+        marginTop: 10,
+        color: "#777",
+        fontSize: 12,
+    },
 });
