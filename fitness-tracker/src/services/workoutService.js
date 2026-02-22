@@ -10,3 +10,10 @@ export async function getWorkoutById(workoutId) {
         const result = await api.get(`/workouts/${workoutId}`);
         return result.data;
       }
+export async function getLastWorkoutByUserId(userId) {
+        const result = await api.get(
+          `/workouts?userId=${Number(userId)}&_sort=createdAt&_order=desc&_limit=1`
+        );
+      
+        return result.data[0] ?? null;
+      }

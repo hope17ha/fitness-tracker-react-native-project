@@ -129,7 +129,7 @@ export default function MyWorkoutsScreen({ navigation }) {
                 </Text>
                 <TouchableOpacity
                     style={styles.emptyBtn}
-                    onPress={() => navigation.navigate("CreateWorkoutScreen")}
+                    onPress={() => navigation.navigate("AddWorkoutScreen")}
                 >
                     <Text style={styles.emptyBtnText}>+ New workout</Text>
                 </TouchableOpacity>
