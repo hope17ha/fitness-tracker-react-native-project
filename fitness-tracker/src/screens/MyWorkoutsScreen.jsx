@@ -6,7 +6,7 @@ import {
     ScrollView,
     TouchableOpacity,
     Alert,
-    ActivityIndicator
+    ActivityIndicator,
 } from "react-native";
 import { workoutService } from "../services";
 import { useAuth } from "../contexts/auth/useAuth";
@@ -19,6 +19,7 @@ import {
 export default function MyWorkoutsScreen({ navigation }) {
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [statusFilter, setStatusFilter] = useState("all");
 
     const { user } = useAuth();
 
@@ -44,6 +45,10 @@ export default function MyWorkoutsScreen({ navigation }) {
         };
     }, [user?.id]);
 
+    const visibleWorkouts =
+        statusFilter === "all"
+            ? workouts
+            : workouts.filter((w) => w.status === statusFilter);
     return (
         <ScrollView style={styles.container}>
             {/* Header */}
@@ -52,21 +57,63 @@ export default function MyWorkoutsScreen({ navigation }) {
                 <Text style={styles.subtitle}>Your sessions and history</Text>
             </View>
 
-            {/* Filters (UI only) */}
             <View style={styles.filterRow}>
-                <TouchableOpacity style={styles.filterChipActive}>
-                    <Text style={styles.filterChipTextActive}>All</Text>
+                <TouchableOpacity
+                    style={[
+                        styles.filterChip,
+                        statusFilter === "all" && styles.filterChipActive,
+                    ]}
+                    onPress={() => setStatusFilter("all")}
+                >
+                    <Text
+                        style={[
+                            styles.filterChipText,
+                            statusFilter === "all" &&
+                                styles.filterChipTextActive,
+                        ]}
+                    >
+                        All
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterChip}>
-                    <Text style={styles.filterChipText}>Active</Text>
+
+                <TouchableOpacity
+                    style={[
+                        styles.filterChip,
+                        statusFilter === "active" && styles.filterChipActive,
+                    ]}
+                    onPress={() => setStatusFilter("active")}
+                >
+                    <Text
+                        style={[
+                            styles.filterChipText,
+                            statusFilter === "active" &&
+                                styles.filterChipTextActive,
+                        ]}
+                    >
+                        Active
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.filterChip}>
-                    <Text style={styles.filterChipText}>Done</Text>
+
+                <TouchableOpacity
+                    style={[
+                        styles.filterChip,
+                        statusFilter === "done" && styles.filterChipActive,
+                    ]}
+                    onPress={() => setStatusFilter("done")}
+                >
+                    <Text
+                        style={[
+                            styles.filterChipText,
+                            statusFilter === "done" &&
+                                styles.filterChipTextActive,
+                        ]}
+                    >
+                        Done
+                    </Text>
                 </TouchableOpacity>
             </View>
 
             <Text style={styles.sectionTitle}>Workouts</Text>
-
 
             {loading && (
                 <View style={styles.loaderBox}>
@@ -75,60 +122,68 @@ export default function MyWorkoutsScreen({ navigation }) {
                 </View>
             )}
 
-            {!loading && workouts.map((workout) => {
-                const mins = minutesBetween(
-                    workout.startedAt,
-                    workout.finishedAt
-                );
-                return (
-                    <TouchableOpacity
-                        style={styles.workoutCard}
-                        onPress={() =>
-                            navigation.navigate("WorkoutDetailsScreen", {
-                                workoutId: workout.id,
-                            })
-                        }
-                        key={workout.id}
-                    >
-                        <View style={styles.workoutTopRow}>
-                            <Text style={styles.workoutTitle} numberOfLines={1}>
-                                {workout.title}
-                            </Text>
-                            <View
-                                style={[
-                                    styles.statusPill,
-                                    { backgroundColor: "#1c2f44" },
-                                ]}
-                            >
-                                <Text style={styles.statusText}>
-                                    {workout.status}
+            {!loading &&
+                visibleWorkouts.map((workout) => {
+                    const mins = minutesBetween(
+                        workout.startedAt,
+                        workout.finishedAt
+                    );
+                    return (
+                        <TouchableOpacity
+                            style={styles.workoutCard}
+                            onPress={() =>
+                                navigation.navigate("WorkoutDetailsScreen", {
+                                    workoutId: workout.id,
+                                })
+                            }
+                            key={workout.id}
+                        >
+                            <View style={styles.workoutTopRow}>
+                                <Text
+                                    style={styles.workoutTitle}
+                                    numberOfLines={1}
+                                >
+                                    {workout.title}
                                 </Text>
+                                <View
+                                    style={[
+                                        styles.statusPill,
+                                        { backgroundColor: "#1c2f44" },
+                                    ]}
+                                >
+                                    <Text style={styles.statusText}>
+                                        {workout.status}
+                                    </Text>
+                                </View>
                             </View>
-                        </View>
 
-                        <Text style={styles.workoutMeta}>
-                            {formatTimeHHMM(workout.startedAt)}h •{" "}
-                            {workout.exercises?.length} exercises •{" "}
-                            {mins ?? "—"} min
-                        </Text>
-                        <View style={styles.workoutBottomRow}>
-                            <View style={styles.miniStat}>
-                                <Text style={styles.miniLabel}>Started</Text>
-                                <Text style={styles.miniValue}>
-                                    {formatDate(workout.startedAt)}
-                                </Text>
+                            <Text style={styles.workoutMeta}>
+                                {formatTimeHHMM(workout.startedAt)}h •{" "}
+                                {workout.exercises?.length} exercises •{" "}
+                                {mins ?? "—"} min
+                            </Text>
+                            <View style={styles.workoutBottomRow}>
+                                <View style={styles.miniStat}>
+                                    <Text style={styles.miniLabel}>
+                                        Started
+                                    </Text>
+                                    <Text style={styles.miniValue}>
+                                        {formatDate(workout.startedAt)}
+                                    </Text>
+                                </View>
+                                <View style={styles.miniStat}>
+                                    <Text style={styles.miniLabel}>
+                                        Finished
+                                    </Text>
+                                    <Text style={styles.miniValue}>
+                                        {formatDate(workout.finishedAt)}
+                                    </Text>
+                                </View>
+                                <Text style={styles.chev}>›</Text>
                             </View>
-                            <View style={styles.miniStat}>
-                                <Text style={styles.miniLabel}>Finished</Text>
-                                <Text style={styles.miniValue}>
-                                    {formatDate(workout.finishedAt)}
-                                </Text>
-                            </View>
-                            <Text style={styles.chev}>›</Text>
-                        </View>
-                    </TouchableOpacity>
-                );
-            })}
+                        </TouchableOpacity>
+                    );
+                })}
 
             {/* CTA box */}
             <View style={styles.emptyBox}>
