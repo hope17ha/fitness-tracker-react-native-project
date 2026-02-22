@@ -105,6 +105,7 @@ export default function ExerciseListScreen({ navigation, route }) {
                         muscleGroupId: exercise.muscleGroupId,
                         image: exercise.imageUrl,
                         creatorId: exercise.createdByUserId,
+                        exerciseId: exercise.id
                     })}
                     >
                         <View style={styles.exerciseLeft}>

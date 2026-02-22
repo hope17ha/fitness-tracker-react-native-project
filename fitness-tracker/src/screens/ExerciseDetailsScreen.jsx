@@ -1,16 +1,68 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { useAuth } from "../contexts/auth/useAuth";
+import { catalogService } from "../services";
 
-export default function ExerciseDetailsScreen({ navigation, route}) {
+export default function ExerciseDetailsScreen({ navigation, route }) {
+  const { user } = useAuth();
 
-    const { name, equipment, muscleGroupId, imageUrl, creatorId } = route.params || {};
-    const { user } = useAuth();
 
-    function capitalize(value) {
-        if (!value) return "-";
-        return value.charAt(0).toUpperCase() + value.slice(1);
-      }
+  const exerciseId = route?.params?.exerciseId;
+
+
+  const [exercise, setExercise] = useState(route?.params || null);
+  const [loading, setLoading] = useState(false);
+
+  function capitalize(value) {
+    if (!value) return "-";
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }
+
+  const fetchExercise = useCallback(async () => {
+    if (!exerciseId) return;
+
+    setLoading(true);
+    try {
+      const data = await catalogService.getExerciseById(exerciseId);
+      setExercise(data);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  }, [exerciseId]);
+
+
+  useEffect(() => {
+    const updated = route?.params?.updatedExercise;
+    if (updated) {
+      setExercise(updated);
+      // чистим param-а, за да не се apply-ва пак
+      navigation.setParams({ updatedExercise: undefined });
+    }
+  }, [route?.params?.updatedExercise, navigation]);
+
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchExercise();
+    }, [fetchExercise])
+  );
+
+  const name = exercise?.name;
+  const equipment = exercise?.equipment;
+  const muscleGroupId = exercise?.muscleGroupId;
+  const imageUrl = exercise?.imageUrl; // ползвай imageUrl, не image
+  const createdByUserId = exercise?.createdByUserId;
 
   return (
     <ScrollView style={styles.container}>
@@ -22,16 +74,31 @@ export default function ExerciseDetailsScreen({ navigation, route}) {
 
         <View style={styles.headerText}>
           <Text style={styles.title} numberOfLines={1}>
-            {name}
+            {name || "Exercise"}
           </Text>
-          <Text style={styles.subtitle}>{capitalize(muscleGroupId)} • {capitalize(equipment)}</Text>
+          <Text style={styles.subtitle}>
+            {capitalize(muscleGroupId)} • {capitalize(equipment)}
+          </Text>
         </View>
       </View>
 
+      {/* Loader card (само докато refetch-ва) */}
+      {loading && (
+        <View style={styles.loaderBox}>
+          <ActivityIndicator size="large" color="#4caf50" />
+          <Text style={styles.loaderText}>Refreshing...</Text>
+        </View>
+      )}
+
       {/* Image */}
       <View style={styles.imageCard}>
-        <View style={styles.imagePlaceholder} />
-        <Text style={styles.imageHint}>Exercise image placeholder</Text>
+        {imageUrl ? (
+          <Image source={{ uri: imageUrl }} style={styles.imagePlaceholder} resizeMode="cover" />
+        ) : (
+          <View style={styles.imagePlaceholder} />
+        )}
+
+        <Text style={styles.imageHint}>{imageUrl || "Exercise image placeholder"}</Text>
       </View>
 
       {/* Quick info */}
@@ -51,17 +118,21 @@ export default function ExerciseDetailsScreen({ navigation, route}) {
       <TouchableOpacity style={styles.primaryBtn}>
         <Text style={styles.primaryBtnText}>Add to workout</Text>
       </TouchableOpacity>
-      {creatorId === user.id ?
-      <TouchableOpacity style={styles.secondaryBtn}>
-        <Text style={styles.secondaryBtnText}>Edit exercise</Text>
-    </TouchableOpacity>
-    : ''
-      }
+
+      {/* Edit button само ако е негово */}
+      {createdByUserId === user?.id ? (
+        <TouchableOpacity
+          style={styles.secondaryBtn}
+          onPress={() => navigation.navigate("ExerciseEditScreen", { exerciseId })}
+        >
+          <Text style={styles.secondaryBtnText}>Edit exercise</Text>
+        </TouchableOpacity>
+      ) : null}
+
       <View style={{ height: 40 }} />
     </ScrollView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#0b1c2d" },
@@ -85,27 +156,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  backText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: -2,
-  },
+  backText: { color: "#fff", fontSize: 18, fontWeight: "bold", marginTop: -2 },
+  headerText: { paddingLeft: 52 },
 
-  headerText: {
-    paddingLeft: 52,
-  },
+  title: { fontSize: 24, fontWeight: "bold", color: "#fff" },
+  subtitle: { color: "#aaa", marginTop: 4 },
 
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#fff",
+  loaderBox: {
+    marginTop: 18,
+    marginHorizontal: 24,
+    paddingVertical: 18,
+    borderRadius: 16,
+    backgroundColor: "#102235",
+    alignItems: "center",
+    justifyContent: "center",
   },
-
-  subtitle: {
-    color: "#aaa",
-    marginTop: 4,
-  },
+  loaderText: { color: "#777", marginTop: 10, fontSize: 12 },
 
   imageCard: {
     marginTop: 18,
@@ -123,11 +189,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1c2f44",
   },
 
-  imageHint: {
-    color: "#777",
-    fontSize: 12,
-    marginTop: 10,
-  },
+  imageHint: { color: "#777", fontSize: 12, marginTop: 10 },
 
   infoRow: {
     marginTop: 18,
@@ -143,17 +205,8 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
 
-  infoLabel: {
-    color: "#777",
-    fontSize: 12,
-  },
-
-  infoValue: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-    marginTop: 6,
-  },
+  infoLabel: { color: "#777", fontSize: 12 },
+  infoValue: { color: "#fff", fontSize: 16, fontWeight: "bold", marginTop: 6 },
 
   primaryBtn: {
     marginTop: 22,
@@ -163,12 +216,8 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     alignItems: "center",
   },
+  primaryBtnText: { color: "#fff", fontWeight: "bold", fontSize: 15 },
 
-  primaryBtnText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 15,
-  },
   secondaryBtn: {
     marginTop: 12,
     marginHorizontal: 24,
@@ -177,10 +226,5 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     alignItems: "center",
   },
-  secondaryBtnText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 15,
-  },
-  
+  secondaryBtnText: { color: "#fff", fontWeight: "bold", fontSize: 15 },
 });
