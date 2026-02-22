@@ -61,7 +61,7 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
   const name = exercise?.name;
   const equipment = exercise?.equipment;
   const muscleGroupId = exercise?.muscleGroupId;
-  const imageUrl = exercise?.imageUrl; // ползвай imageUrl, не image
+  const imageUrl = exercise?.imageUrl; 
   const createdByUserId = exercise?.createdByUserId;
 
   return (

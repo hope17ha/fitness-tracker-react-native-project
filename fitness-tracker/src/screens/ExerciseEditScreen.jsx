@@ -107,8 +107,8 @@ export default function ExerciseEditScreen({ navigation, route }) {
       Alert.alert("Saved", "Exercise updated.");
       navigation.goBack();
       
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
       Alert.alert("Error", "Could not save changes.");
     } finally {
       setSaving(false);
@@ -132,8 +132,8 @@ export default function ExerciseEditScreen({ navigation, route }) {
               await catalogService.deleteExercise(exerciseId);
               Alert.alert("Deleted", "Exercise deleted.");
               navigation.goBack();
-            } catch (e) {
-              console.log(e);
+            } catch (error) {
+              console.log(error);
               Alert.alert("Error", "Could not delete exercise.");
             } finally {
               setDeleting(false);

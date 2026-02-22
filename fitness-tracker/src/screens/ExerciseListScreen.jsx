@@ -20,7 +20,6 @@ export default function ExerciseListScreen({ navigation, route }) {
     
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user } = useAuth();
 
     async function load() {
         setLoading(true);
@@ -100,11 +99,6 @@ export default function ExerciseListScreen({ navigation, route }) {
                         key={exercise.id}
                         onPress={() => navigation.navigate('ExerciseDetailsScreen',
                     {
-                        name: exercise.name,
-                        equipment: exercise.equipment,
-                        muscleGroupId: exercise.muscleGroupId,
-                        image: exercise.imageUrl,
-                        creatorId: exercise.createdByUserId,
                         exerciseId: exercise.id
                     })}
                     >
