@@ -41,10 +41,10 @@ export default function AddExerciseScreen({ navigation }) {
         try {
 
             await catalogService.createExercise({
-                name,
+                name: name.trim(),
                 muscleGroupId,
                 equipment,
-                imageUrl,
+                imageUrl: imageUrl.trim(),
                 userId: user.id,
             });
             navigation.goBack();

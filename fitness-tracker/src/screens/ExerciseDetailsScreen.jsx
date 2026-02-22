@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { useAuth } from "../contexts/auth/useAuth";
 
 export default function ExerciseDetailsScreen({ navigation, route}) {
 
-    const { name, equipment, muscleGroupId, imageUrl, userId } = route.params || {};
-
+    const { name, equipment, muscleGroupId, imageUrl, creatorId } = route.params || {};
+    const { user } = useAuth();
 
     function capitalize(value) {
         if (!value) return "-";
@@ -50,7 +51,12 @@ export default function ExerciseDetailsScreen({ navigation, route}) {
       <TouchableOpacity style={styles.primaryBtn}>
         <Text style={styles.primaryBtnText}>Add to workout</Text>
       </TouchableOpacity>
-
+      {creatorId === user.id ?
+      <TouchableOpacity style={styles.secondaryBtn}>
+        <Text style={styles.secondaryBtnText}>Edit exercise</Text>
+    </TouchableOpacity>
+    : ''
+      }
       <View style={{ height: 40 }} />
     </ScrollView>
   );
@@ -163,4 +169,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
   },
+  secondaryBtn: {
+    marginTop: 12,
+    marginHorizontal: 24,
+    backgroundColor: "#1c2f44",
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: "center",
+  },
+  secondaryBtnText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+  
 });
