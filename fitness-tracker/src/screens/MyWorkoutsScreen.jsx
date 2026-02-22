@@ -140,7 +140,7 @@ export default function MyWorkoutsScreen({ navigation }) {
             {/* Floating button */}
             <TouchableOpacity
                 style={styles.fab}
-                onPress={() => navigation.navigate("CreateWorkoutScreen")}
+                onPress={() => navigation.navigate("AddWorkoutScreen")}
             >
                 <Text style={styles.fabText}>＋</Text>
             </TouchableOpacity>

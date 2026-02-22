@@ -2,6 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MyWorkoutsScreen from "../screens/MyWorkoutsScreen";
 import WorkoutDetailsScreen from "../screens/WorkoutDetailsScreen";
+import AddWorkoutScreen from "../screens/AddWorkoutScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -11,6 +12,7 @@ export default function WorkoutsStackNavigation() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MyWorkoutsScreen" component={MyWorkoutsScreen} options={{headerShown: false}} />
       <Stack.Screen name="WorkoutDetailsScreen" component={WorkoutDetailsScreen} options={{headerShown: false}} />
+      <Stack.Screen name="AddWorkoutScreen" component={AddWorkoutScreen} options={{headerShown: false}} />
     </Stack.Navigator>
   );
 }
