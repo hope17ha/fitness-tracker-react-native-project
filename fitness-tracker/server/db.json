@@ -643,15 +643,77 @@
       "id": 59
     },
     {
-      "name": "Chest Fly High-Low",
+      "name": "Cheat Fly High-Low",
       "muscleGroupId": "chest",
       "equipment": "machine",
       "imageUrl": "https://training.fit/wp-content/uploads/2020/02/butterflys.png",
       "createdByUserId": 2,
       "createdAt": "2026-02-22T11:57:18.994Z",
-      "updatedAt": "2026-02-22T13:19:15.115Z",
+      "updatedAt": "2026-02-22T11:57:18.994Z",
       "id": 60
+    },
+    {
+      "name": "whatever 2",
+      "muscleGroupId": "chest",
+      "equipment": "dumbbell",
+      "imageUrl": null,
+      "createdByUserId": 2,
+      "createdAt": "2026-02-22T12:10:00.778Z",
+      "updatedAt": "2026-02-22T12:10:00.778Z",
+      "id": 61
     }
   ],
-  "workouts": []
+  "workouts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Leg day",
+      "status": "done",
+      "createdAt": "2026-02-15T10:00:00.000Z",
+      "updatedAt": "2026-02-15T11:05:00.000Z",
+      "startedAt": "2026-02-15T10:10:00.000Z",
+      "finishedAt": "2026-02-15T11:05:00.000Z",
+      "exercises": [
+        {
+          "id": "wex1",
+          "exerciseId": 21,
+          "order": 1,
+          "sets": [
+            {
+              "set": 1,
+              "reps": 8,
+              "weight": 80
+            },
+            {
+              "set": 2,
+              "reps": 8,
+              "weight": 80
+            },
+            {
+              "set": 3,
+              "reps": 6,
+              "weight": 85
+            }
+          ]
+        },
+        {
+          "id": "wex2",
+          "exerciseId": 27,
+          "order": 2,
+          "sets": [
+            {
+              "set": 1,
+              "reps": 12,
+              "weight": 4
+            },
+            {
+              "set": 2,
+              "reps": 12,
+              "weight": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
