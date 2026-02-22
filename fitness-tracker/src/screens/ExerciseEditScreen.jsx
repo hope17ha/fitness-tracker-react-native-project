@@ -105,10 +105,7 @@ export default function ExerciseEditScreen({ navigation, route }) {
       });
 
       Alert.alert("Saved", "Exercise updated.");
-      navigation.navigate("ExerciseDetailsScreen", {
-        exerciseId,
-        updatedExercise: updated,
-      });
+      navigation.goBack();
       
     } catch (e) {
       console.log(e);
