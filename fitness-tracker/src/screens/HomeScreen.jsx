@@ -5,7 +5,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     ScrollView,
-    ActivityIndicator
+    ActivityIndicator,
 } from "react-native";
 import { useAuth } from "../contexts/auth/useAuth";
 import { workoutService } from "../services";
@@ -92,7 +92,14 @@ export default function HomeScreen({ navigation }) {
                 cdf
             </View>
 
-            <TouchableOpacity style={styles.createCard}>
+            <TouchableOpacity
+                style={styles.createCard}
+                onPress={() =>
+                    navigation.navigate("My Workouts", {
+                        screen: "AddWorkoutScreen",
+                    })
+                }
+            >
                 <Text style={styles.emoji}>➕</Text>
                 <Text style={styles.cardTitle}>Create Workout</Text>
             </TouchableOpacity>
