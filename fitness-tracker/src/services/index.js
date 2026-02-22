@@ -1,2 +1,3 @@
-export * as authService from './authService';
-export * as catalogService from './catalogService';
+export * as authService from "./authService";
+export * as exercisesService from "./exercisesService";
+export * as workoutService from "./workoutService";

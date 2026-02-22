@@ -12,7 +12,7 @@ import {
     ActivityIndicator,
 } from "react-native";
 
-import { catalogService } from "../services";
+import { exercisesService } from "../services";
 import { useAuth } from "../contexts/auth/useAuth";
 
 export default function ExerciseListScreen({ navigation, route }) {
@@ -25,7 +25,7 @@ export default function ExerciseListScreen({ navigation, route }) {
     async function load() {
         setLoading(true);
         try {
-            const data = await catalogService.getExercisesByMuscleGroup(
+            const data = await exercisesService.getExercisesByMuscleGroup(
                 muscleGroupId
             );
             setExercises(data);

@@ -9,7 +9,7 @@ import {
     Alert,
     ActivityIndicator,
 } from "react-native";
-import { catalogService } from "../services";
+import { exercisesService } from "../services";
 
 export default function CatalogScreen({ navigation }) {
     const [exercises, setExercises] = useState([]);
@@ -20,7 +20,7 @@ export default function CatalogScreen({ navigation }) {
         setLoading(true);
         async function load() {
             try {
-                const data = await catalogService.getAllExercises();
+                const data = await exercisesService.getAllExercises();
                 setExercises(data);
             } catch (error) {
                 Alert.alert("Couldn't load exercises. Try again!");

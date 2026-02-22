@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useAuth } from "../contexts/auth/useAuth";
-import { catalogService } from "../services";
+import { exercisesService } from "../services";
 
 export default function ExerciseDetailsScreen({ navigation, route }) {
   const { user } = useAuth();
@@ -32,7 +32,7 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
 
     setLoading(true);
     try {
-      const data = await catalogService.getExerciseById(exerciseId);
+      const data = await exercisesService.getExerciseById(exerciseId);
       setExercise(data);
     } catch (e) {
       console.log(e);
@@ -46,7 +46,7 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
     const updated = route?.params?.updatedExercise;
     if (updated) {
       setExercise(updated);
-      // чистим param-а, за да не се apply-ва пак
+    
       navigation.setParams({ updatedExercise: undefined });
     }
   }, [route?.params?.updatedExercise, navigation]);

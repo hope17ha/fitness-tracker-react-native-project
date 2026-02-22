@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useAuth } from "../contexts/auth/useAuth";
-import { catalogService } from "../services";
+import { exercisesService } from "../services";
 
 export default function ExerciseEditScreen({ navigation, route }) {
   const { user } = useAuth();
@@ -62,7 +62,7 @@ export default function ExerciseEditScreen({ navigation, route }) {
     async function load() {
       try {
         setLoading(true);
-        const data = await catalogService.getExerciseById(exerciseId);
+        const data = await exercisesService.getExerciseById(exerciseId);
 
         if (!mounted) return;
 
@@ -97,7 +97,7 @@ export default function ExerciseEditScreen({ navigation, route }) {
     try {
       setSaving(true);
 
-      const updated = await catalogService.updateExercise(exerciseId, {
+      const updated = await exercisesService.updateExercise(exerciseId, {
         name: name.trim(),
         muscleGroupId,
         equipment,
@@ -129,7 +129,7 @@ export default function ExerciseEditScreen({ navigation, route }) {
           onPress: async () => {
             try {
               setDeleting(true);
-              await catalogService.deleteExercise(exerciseId);
+              await exercisesService.deleteExercise(exerciseId);
               Alert.alert("Deleted", "Exercise deleted.");
               navigation.pop(2);
             } catch (error) {

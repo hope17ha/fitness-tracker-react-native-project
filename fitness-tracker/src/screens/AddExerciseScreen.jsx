@@ -8,7 +8,7 @@ import {
     TextInput,
     Alert,
 } from "react-native";
-import { catalogService } from "../services";
+import { exercisesService } from "../services";
 import { useAuth } from "../contexts/auth/useAuth";
 
 export default function AddExerciseScreen({ navigation }) {
@@ -40,7 +40,7 @@ export default function AddExerciseScreen({ navigation }) {
 
         try {
 
-            await catalogService.createExercise({
+            await exercisesService.createExercise({
                 name: name.trim(),
                 muscleGroupId,
                 equipment,
