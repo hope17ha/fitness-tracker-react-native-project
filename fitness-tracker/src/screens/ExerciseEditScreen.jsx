@@ -131,7 +131,7 @@ export default function ExerciseEditScreen({ navigation, route }) {
               setDeleting(true);
               await catalogService.deleteExercise(exerciseId);
               Alert.alert("Deleted", "Exercise deleted.");
-              navigation.goBack();
+              navigation.pop(2);
             } catch (error) {
               console.log(error);
               Alert.alert("Error", "Could not delete exercise.");
