@@ -96,6 +96,7 @@ export default function ExerciseListScreen({ navigation, route }) {
                     <TouchableOpacity
                         style={styles.exerciseCard}
                         key={exercise.id}
+                        onPress={() => navigation.navigate('ExerciseDetailsScreen')}
                     >
                         <View style={styles.exerciseLeft}>
                             <View style={styles.thumb} />
