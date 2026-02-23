@@ -677,41 +677,12 @@
         {
           "id": "wex1",
           "exerciseId": 21,
-          "order": 1,
-          "sets": [
-            {
-              "set": 1,
-              "reps": 8,
-              "weight": 80
-            },
-            {
-              "set": 2,
-              "reps": 8,
-              "weight": 80
-            },
-            {
-              "set": 3,
-              "reps": 6,
-              "weight": 85
-            }
-          ]
+          "order": 1
         },
         {
           "id": "wex2",
           "exerciseId": 27,
-          "order": 2,
-          "sets": [
-            {
-              "set": 1,
-              "reps": 12,
-              "weight": 4
-            },
-            {
-              "set": 2,
-              "reps": 12,
-              "weight": 4
-            }
-          ]
+          "order": 2
         }
       ]
     },
@@ -728,33 +699,57 @@
     },
     {
       "title": "Push day",
-      "status": "active",
+      "status": "done",
       "userId": 2,
       "createdAt": "2026-02-23T14:25:57.433Z",
-      "updatedAt": "2026-02-23T14:54:44.729Z",
+      "updatedAt": "2026-02-23T14:56:26.984Z",
       "startedAt": "2026-02-23T14:25:57.433Z",
-      "finishedAt": null,
+      "finishedAt": "2026-02-23T14:55:09.457Z",
       "exercises": [
         {
           "id": "wex_1771858473910",
           "exerciseId": 22,
-          "order": 1,
-          "sets": []
+          "order": 1
         },
         {
           "id": "wex_1771858480122",
           "exerciseId": 42,
-          "order": 2,
-          "sets": []
+          "order": 2
         },
         {
           "id": "wex_1771858484729",
           "exerciseId": 12,
-          "order": 3,
-          "sets": []
+          "order": 3
+        },
+        {
+          "id": "wex_1771858586984",
+          "exerciseId": 52,
+          "order": 4
         }
       ],
       "id": 3
+    },
+    {
+      "title": "Back day",
+      "status": "active",
+      "userId": 2,
+      "createdAt": "2026-02-23T15:00:49.785Z",
+      "updatedAt": "2026-02-23T15:01:02.989Z",
+      "startedAt": "2026-02-23T15:00:49.785Z",
+      "finishedAt": null,
+      "exercises": [
+        {
+          "id": "wex_1771858855565",
+          "exerciseId": 13,
+          "order": 1
+        },
+        {
+          "id": "wex_1771858862989",
+          "exerciseId": 14,
+          "order": 2
+        }
+      ],
+      "id": 4
     }
   ]
 }

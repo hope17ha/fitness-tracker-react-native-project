@@ -70,8 +70,7 @@ export async function getLastWorkoutByUserId(userId) {
         const newWorkoutExercise = {
           id: `wex_${Date.now()}`,       
           exerciseId: Number(exerciseId),
-          order: newOrder,
-          sets: [],                     
+          order: newOrder,                 
         };
       
         const updated = await api.patch(`/workouts/${workoutId}`, {

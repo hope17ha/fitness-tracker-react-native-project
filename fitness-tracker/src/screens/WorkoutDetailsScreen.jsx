@@ -182,7 +182,6 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
                     const ex = exerciseMap[wex.exerciseId];
                     const exName = ex?.name ?? `Exercise #${wex.exerciseId}`;
                     const equipment = ex?.equipment ?? "—";
-                    const setsCount = wex.sets?.length ?? 0;
 
                     return (
                         <View
@@ -197,29 +196,8 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
                                     {idx + 1}. {exName}
                                 </Text>
                                 <Text style={styles.exerciseMeta}>
-                                    {equipment} • {setsCount} sets
+                                    {equipment}
                                 </Text>
-                            </View>
-
-                            <View style={styles.setsCard}>
-                                {(wex.sets || []).map((s, i) => (
-                                    <View
-                                        key={`${wex.exerciseId}-set-${i}`}
-                                        style={[
-                                            styles.setRow,
-                                            i === wex.sets.length - 1 && {
-                                                borderBottomWidth: 0,
-                                            },
-                                        ]}
-                                    >
-                                        <Text style={styles.setLeft}>
-                                            Set {s.set ?? i + 1}
-                                        </Text>
-                                        <Text style={styles.setRight}>
-                                            {s.reps} reps • {s.weight} kg
-                                        </Text>
-                                    </View>
-                                ))}
                             </View>
                         </View>
                     );
@@ -304,13 +282,6 @@ const styles = StyleSheet.create({
     },
     exerciseTitle: { color: "#fff", fontWeight: "bold", fontSize: 16, flex: 1 },
     exerciseMeta: { color: "#777", fontSize: 12 },
-
-    setsCard: {
-        marginTop: 12,
-        backgroundColor: "#13263a",
-        borderRadius: 14,
-        padding: 12,
-    },
     setRow: {
         flexDirection: "row",
         alignItems: "center",
