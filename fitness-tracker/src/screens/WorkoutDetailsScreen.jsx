@@ -143,6 +143,48 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
                 </View>
             </View>
 
+            <View style={styles.actionsRow}>
+                <TouchableOpacity
+                    style={[
+                        styles.primaryBtn,
+                        workout.status === "done" && { opacity: 0.6 },
+                    ]}
+                    disabled={workout.status === "done"}
+                    onPress={async () => {
+                        try {
+                            await workoutService.finishWorkout(workout.id);
+                            // refresh
+                            const w = await workoutService.getWorkoutById(
+                                workout.id
+                            );
+                            setWorkout(w);
+                            Alert.alert("Done", "Workout marked as done.");
+                        } catch (e) {
+                            console.log(e);
+                            Alert.alert("Error", "Could not finish workout.");
+                        }
+                    }}
+                >
+                    <Text style={styles.primaryBtnText}>
+                        {workout.status === "done"
+                            ? "Workout done"
+                            : "Finish workout"}
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.secondaryBtn}
+                    onPress={() => {
+                        navigation.getParent()?.navigate("Catalog", {
+                            screen: "CatalogScreen",
+                            params: { selectForWorkoutId: workout.id },
+                        });
+                    }}
+                >
+                    <Text style={styles.secondaryBtnText}>+ Add exercise</Text>
+                </TouchableOpacity>
+            </View>
+
             <Text style={styles.sectionTitle}>Exercises</Text>
 
             {(workout.exercises || [])
@@ -291,4 +333,19 @@ const styles = StyleSheet.create({
     },
     setLeft: { color: "#aaa", fontWeight: "600" },
     setRight: { color: "#fff", fontWeight: "bold" },
+    actionsRow: { marginTop: 16, marginHorizontal: 24, gap: 12 },
+    primaryBtn: {
+        backgroundColor: "#4caf50",
+        paddingVertical: 14,
+        borderRadius: 14,
+        alignItems: "center",
+    },
+    primaryBtnText: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+    secondaryBtn: {
+        backgroundColor: "#1c2f44",
+        paddingVertical: 14,
+        borderRadius: 14,
+        alignItems: "center",
+    },
+    secondaryBtnText: { color: "#fff", fontWeight: "bold", fontSize: 15 },
 });
