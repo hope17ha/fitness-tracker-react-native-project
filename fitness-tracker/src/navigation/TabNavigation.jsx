@@ -41,6 +41,11 @@ export default function TabNavigation() {
                     ),
                     headerShown: false,
                 }}
+                listeners={({ navigation }) => ({
+                    tabPress: () => {
+                      navigation.navigate("My Workouts", { screen: "MyWorkoutsScreen" });
+                    },
+                  })}
             />
             <Tab.Screen
                 name="Profile"

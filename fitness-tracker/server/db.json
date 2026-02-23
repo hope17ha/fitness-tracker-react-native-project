@@ -717,14 +717,25 @@
     },
     {
       "title": "Pull day",
-      "status": "active",
+      "status": "done",
       "userId": 2,
       "createdAt": "2026-02-23T14:09:29.633Z",
-      "updatedAt": "2026-02-23T14:09:29.633Z",
+      "updatedAt": "2026-02-23T14:25:57.400Z",
       "startedAt": "2026-02-23T14:09:29.633Z",
-      "finishedAt": null,
+      "finishedAt": "2026-02-23T14:25:57.400Z",
       "exercises": [],
       "id": 2
+    },
+    {
+      "title": "Push day",
+      "status": "active",
+      "userId": 2,
+      "createdAt": "2026-02-23T14:25:57.433Z",
+      "updatedAt": "2026-02-23T14:25:57.433Z",
+      "startedAt": "2026-02-23T14:25:57.433Z",
+      "finishedAt": null,
+      "exercises": [],
+      "id": 3
     }
   ]
 }

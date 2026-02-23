@@ -41,7 +41,10 @@ if (!title.trim()) return Alert.alert("Missing title", "Enter a title.");
             {
               text: "Resume",
               onPress: () => {
-                navigation.replace("WorkoutDetailsScreen", { workoutId: active.id });
+                navigation.getParent()?.navigate("My Workouts", {
+                    screen: "WorkoutDetailsScreen",
+                    params: { workoutId: created.id },
+                  });
               },
             },
             {
@@ -59,7 +62,10 @@ if (!title.trim()) return Alert.alert("Missing title", "Enter a title.");
                     title,
                   });
 
-                  navigation.replace("WorkoutDetailsScreen", { workoutId: created.id });
+                  navigation.getParent()?.navigate("My Workouts", {
+                    screen: "WorkoutDetailsScreen",
+                    params: { workoutId: created.id },
+                  });
                 } catch (e) {
                   console.log(e);
                   Alert.alert("Error", "Could not start new workout.");
@@ -80,7 +86,10 @@ if (!title.trim()) return Alert.alert("Missing title", "Enter a title.");
         title,
       });
 
-      navigation.replace("WorkoutDetailsScreen", { workoutId: created.id });
+      navigation.getParent()?.navigate("My Workouts", {
+        screen: "WorkoutDetailsScreen",
+        params: { workoutId: created.id },
+      });
     } catch (e) {
       console.log(e);
       Alert.alert("Error", "Could not create workout.");
