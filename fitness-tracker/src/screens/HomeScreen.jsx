@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
+import { useFocusEffect } from '@react-navigation/native'
 import {
     View,
     Text,
@@ -16,32 +17,38 @@ export default function HomeScreen({ navigation }) {
 
     const [workout, setWorkout] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [activeWorkout, setActiveWorkout] = useState(null);
 
     const logoutHandler = () => {
         logout();
     };
 
-    useEffect(() => {
-        if (!user?.id) return;
-        let mounted = true;
-        setLoading(true);
-        async function load() {
-            try {
-                const data = await workoutService.getLastWorkoutByUserId(
-                    user.id
-                );
-                if (mounted) setWorkout(data);
-            } catch (error) {
-                Alert.alert("Couldn't load workouts. Try again!");
-            } finally {
-                if (mounted) setLoading(false);
-            }
-        }
-        load();
-        return () => {
-            mounted = false;
-        };
-    }, [user?.id]);
+    useFocusEffect(
+        useCallback (() => {
+            async function load() {
+            
+                if (!user?.id) return;
+                let mounted = true;
+                const data = await workoutService.getActiveWorkoutByUserId(user.id);
+                if (mounted) setActiveWorkout(data);
+                setLoading(true);
+                try {
+                    const data = await workoutService.getLastWorkoutByUserId(
+                        user.id
+                        );
+                        if (mounted) setWorkout(data);
+                    } catch (error) {
+                        Alert.alert("Couldn't load workouts. Try again!");
+                    } finally {
+                        if (mounted) setLoading(false);
+                    }
+                    return () => {
+                        mounted = false;
+                    };
+                }
+       load();
+    }, [user?.id])
+    );
 
     const mins = minutesBetween(workout.startedAt, workout.finishedAt);
 
@@ -61,10 +68,38 @@ export default function HomeScreen({ navigation }) {
             </View>
             <TouchableOpacity style={styles.heroCard}></TouchableOpacity>
 
-            {/* Start Workout */}
-            <TouchableOpacity style={styles.startCard}>
-                <Text style={styles.startTitle}>Start Workout</Text>
-                <Text style={styles.startSub}>Begin your session</Text>
+            <TouchableOpacity
+                style={styles.startCard}
+                onPress={async () => {
+                    if (!user?.id) return;
+
+                    if (activeWorkout?.id) {
+                        navigation.navigate("My Workouts", {
+                            screen: "WorkoutDetailsScreen",
+                            params: { workoutId: activeWorkout.id },
+                        });
+                        return;
+                    }
+
+                    const created = await workoutService.createWorkout({
+                        userId: user.id,
+                        title: "Workout",
+                    });
+
+                    navigation.navigate("My Workouts", {
+                        screen: "WorkoutDetailsScreen",
+                        params: { workoutId: created.id },
+                    });
+                }}
+            >
+                <Text style={styles.startTitle}>
+                    {activeWorkout?.id ? "Continue Workout" : "Start Workout"}
+                </Text>
+                <Text style={styles.startSub}>
+                    {activeWorkout?.id
+                        ? "Resume your active session"
+                        : "Create a new session"}
+                </Text>
             </TouchableOpacity>
 
             {/* Quick actions */}
