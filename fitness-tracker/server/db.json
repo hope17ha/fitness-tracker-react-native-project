@@ -731,12 +731,12 @@
     },
     {
       "title": "Back day",
-      "status": "active",
+      "status": "done",
       "userId": 2,
       "createdAt": "2026-02-23T15:00:49.785Z",
-      "updatedAt": "2026-02-23T15:01:02.989Z",
+      "updatedAt": "2026-02-23T15:07:33.048Z",
       "startedAt": "2026-02-23T15:00:49.785Z",
-      "finishedAt": null,
+      "finishedAt": "2026-02-23T15:07:33.048Z",
       "exercises": [
         {
           "id": "wex_1771858855565",
@@ -750,6 +750,17 @@
         }
       ],
       "id": 4
+    },
+    {
+      "title": "Biceps",
+      "status": "active",
+      "userId": 2,
+      "createdAt": "2026-02-23T15:07:48.672Z",
+      "updatedAt": "2026-02-23T15:07:48.672Z",
+      "startedAt": "2026-02-23T15:07:48.672Z",
+      "finishedAt": null,
+      "exercises": [],
+      "id": 5
     }
   ]
 }

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import {
     View,
     Text,
@@ -23,28 +24,25 @@ export default function MyWorkoutsScreen({ navigation }) {
 
     const { user } = useAuth();
 
-    useEffect(() => {
+    const load = useCallback(async () => {
         if (!user?.id) return;
-        let mounted = true;
+    
         setLoading(true);
-        async function load() {
-            try {
-                const data = await workoutService.getAllWorkoutsByUserId(
-                    user.id
-                );
-                if (mounted) setWorkouts(data);
-            } catch (error) {
-                Alert.alert("Couldn't load workouts. Try again!");
-            } finally {
-                if (mounted) setLoading(false);
-            }
+        try {
+          const data = await workoutService.getAllWorkoutsByUserId(user.id);
+          setWorkouts(data);
+        } catch (error) {
+          Alert.alert("Couldn't load workouts. Try again!");
+        } finally {
+          setLoading(false);
         }
-        load();
-        return () => {
-            mounted = false;
-        };
-    }, [user?.id]);
-
+      }, [user?.id]);
+    
+      useFocusEffect(
+        useCallback(() => {
+          load();
+        }, [load])
+      );
     const visibleWorkouts =
         statusFilter === "all"
             ? workouts
