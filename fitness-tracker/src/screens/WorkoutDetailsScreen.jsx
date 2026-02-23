@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import {
     View,
     Text,
@@ -22,75 +23,62 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
     const [workout, setWorkout] = useState(null);
     const [exerciseMap, setExerciseMap] = useState({}); // { [exerciseId]: exerciseObj }
 
-    useEffect(() => {
+    const load = useCallback(async () => {
         if (!workoutId) return;
-
-        let mounted = true;
-
-        async function load() {
-            try {
-                setLoading(true);
-
-                const w = await workoutService.getWorkoutById(workoutId);
-                if (!mounted) return;
-
-                setWorkout(w);
-
-                const ids = (w.exercises || []).map((x) => x.exerciseId);
-                const uniqueIds = [...new Set(ids)];
-
-                const results = await Promise.all(
-                    uniqueIds.map(async (id) => {
-                        try {
-                            const ex = await exercisesService.getExerciseById(
-                                id
-                            );
-                            return [id, ex];
-                        } catch {
-                            return [id, null];
-                        }
-                    })
-                );
-
-                if (!mounted) return;
-
-                const map = {};
-                for (const [id, ex] of results) map[id] = ex;
-                setExerciseMap(map);
-            } catch (e) {
-                console.log(e);
-                Alert.alert("Error", "Could not load workout.");
-                navigation.goBack();
-            } finally {
-                if (mounted) setLoading(false);
-            }
+    
+        setLoading(true);
+        try {
+          const w = await workoutService.getWorkoutById(workoutId);
+          setWorkout(w);
+    
+          const ids = (w.exercises || []).map((x) => x.exerciseId);
+          const uniqueIds = [...new Set(ids)];
+    
+          const results = await Promise.all(
+            uniqueIds.map(async (id) => {
+              try {
+                const ex = await exercisesService.getExerciseById(id);
+                return [id, ex];
+              } catch {
+                return [id, null];
+              }
+            })
+          );
+    
+          const map = {};
+          for (const [id, ex] of results) map[id] = ex;
+          setExerciseMap(map);
+        } catch (e) {
+          console.log(e);
+          Alert.alert("Error", "Could not load workout.");
+          navigation.goBack();
+        } finally {
+          setLoading(false);
         }
-
+      }, [workoutId, navigation]);
+    
+      useEffect(() => {
         load();
-        return () => {
-            mounted = false;
-        };
-    }, [workoutId, navigation]);
-
-    if (loading) {
+      }, [load]);
+    
+      useFocusEffect(
+        useCallback(() => {
+          load();
+        }, [load])
+      );
+    
+      if (loading) {
         return (
-            <View
-                style={[
-                    styles.container,
-                    { justifyContent: "center", alignItems: "center" },
-                ]}
-            >
-                <ActivityIndicator size="large" color="#4caf50" />
-                <Text style={{ color: "#777", marginTop: 10 }}>
-                    Loading workout...
-                </Text>
-            </View>
+          <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
+            <ActivityIndicator size="large" color="#4caf50" />
+            <Text style={{ color: "#777", marginTop: 10 }}>Loading workout...</Text>
+          </View>
         );
-    }
-
-    if (!workout) return null;
-
-    const mins = minutesBetween(workout.startedAt, workout.finishedAt);
+      }
+    
+      if (!workout) return null;
+    
+      const mins = minutesBetween(workout.startedAt, workout.finishedAt);
 
     return (
         <ScrollView style={styles.container}>

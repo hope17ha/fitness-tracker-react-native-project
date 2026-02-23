@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import { exercisesService } from "../services";
 
-export default function CatalogScreen({ navigation }) {
+export default function CatalogScreen({ navigation, route }) {
+    const selectForWorkoutId = route?.params?.selectForWorkoutId;
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -72,6 +73,7 @@ export default function CatalogScreen({ navigation }) {
                         navigation.navigate("ExerciseListScreen", {
                             muscleGroupId: "back",
                             title: "Back",
+                            selectForWorkoutId,
                         })
                     }
                 >
@@ -85,6 +87,7 @@ export default function CatalogScreen({ navigation }) {
                         navigation.navigate("ExerciseListScreen", {
                             muscleGroupId: "legs",
                             title: "Legs",
+                            selectForWorkoutId,
                         })
                     }
                 >
@@ -98,6 +101,7 @@ export default function CatalogScreen({ navigation }) {
                         navigation.navigate("ExerciseListScreen", {
                             muscleGroupId: "shoulders",
                             title: "Shoulders",
+                            selectForWorkoutId,
                         })
                     }
                 >
@@ -111,6 +115,7 @@ export default function CatalogScreen({ navigation }) {
                         navigation.navigate("ExerciseListScreen", {
                             muscleGroupId: "arms",
                             title: "Arms",
+                            selectForWorkoutId,
                         })
                     }
                 >
@@ -124,6 +129,7 @@ export default function CatalogScreen({ navigation }) {
                         navigation.navigate("ExerciseListScreen", {
                             muscleGroupId: "core",
                             title: "Core",
+                            selectForWorkoutId,
                         })
                     }
                 >

@@ -10,14 +10,14 @@ import {
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useAuth } from "../contexts/auth/useAuth";
-import { exercisesService } from "../services";
+import { exercisesService, workoutService } from "../services";
 
 export default function ExerciseDetailsScreen({ navigation, route }) {
   const { user } = useAuth();
 
 
   const exerciseId = route?.params?.exerciseId;
-
+  const selectForWorkoutId = route?.params?.selectForWorkoutId;
 
   const [exercise, setExercise] = useState(route?.params || null);
   const [loading, setLoading] = useState(false);
@@ -115,12 +115,30 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
       </View>
 
       {/* Primary action */}
-      <TouchableOpacity style={styles.primaryBtn}>
-        <Text style={styles.primaryBtnText}>Add to workout</Text>
-      </TouchableOpacity>
+      <TouchableOpacity
+  style={styles.primaryBtn}
+  onPress={async () => {
+    if (!selectForWorkoutId) return;
 
-      {/* Edit button само ако е негово */}
-      {createdByUserId === user?.id ? (
+    try {
+      await workoutService.addExerciseToWorkout(selectForWorkoutId, exerciseId);
+
+      navigation.getParent()?.navigate("My Workouts", {
+        screen: "WorkoutDetailsScreen",
+        params: { workoutId: selectForWorkoutId },
+      });
+    } catch (e) {
+      console.log(e);
+      Alert.alert("Error", "Could not add exercise to workout.");
+    }
+  }}
+>
+  <Text style={styles.primaryBtnText}>
+    {selectForWorkoutId ? "Add to workout" : "Add to workout"}
+  </Text>
+</TouchableOpacity>
+
+      {!selectForWorkoutId && createdByUserId === user?.id ? (
         <TouchableOpacity
           style={styles.secondaryBtn}
           onPress={() => navigation.navigate("ExerciseEditScreen", { exerciseId })}

@@ -13,10 +13,9 @@ import {
 } from "react-native";
 
 import { exercisesService } from "../services";
-import { useAuth } from "../contexts/auth/useAuth";
 
 export default function ExerciseListScreen({ navigation, route }) {
-    const { muscleGroupId, title } = route.params || {};
+    const { muscleGroupId, title, selectForWorkoutId } = route.params || {};
 
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -208,6 +207,7 @@ export default function ExerciseListScreen({ navigation, route }) {
                         onPress={() =>
                             navigation.navigate("ExerciseDetailsScreen", {
                                 exerciseId: exercise.id,
+                                selectForWorkoutId
                             })
                         }
                     >

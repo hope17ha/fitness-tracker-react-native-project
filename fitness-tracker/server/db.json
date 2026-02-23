@@ -731,10 +731,29 @@
       "status": "active",
       "userId": 2,
       "createdAt": "2026-02-23T14:25:57.433Z",
-      "updatedAt": "2026-02-23T14:25:57.433Z",
+      "updatedAt": "2026-02-23T14:54:44.729Z",
       "startedAt": "2026-02-23T14:25:57.433Z",
       "finishedAt": null,
-      "exercises": [],
+      "exercises": [
+        {
+          "id": "wex_1771858473910",
+          "exerciseId": 22,
+          "order": 1,
+          "sets": []
+        },
+        {
+          "id": "wex_1771858480122",
+          "exerciseId": 42,
+          "order": 2,
+          "sets": []
+        },
+        {
+          "id": "wex_1771858484729",
+          "exerciseId": 12,
+          "order": 3,
+          "sets": []
+        }
+      ],
       "id": 3
     }
   ]
