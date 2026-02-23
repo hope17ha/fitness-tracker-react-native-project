@@ -73,24 +73,28 @@ export default function HomeScreen({ navigation }) {
                 onPress={async () => {
                     if (!user?.id) return;
 
-                    if (activeWorkout?.id) {
-                        navigation.navigate("My Workouts", {
-                            screen: "WorkoutDetailsScreen",
-                            params: { workoutId: activeWorkout.id },
-                        });
-                        return;
-                    }
+                    const freshActive = await workoutService.getActiveWorkoutByUserId(user.id);
 
-                    const created = await workoutService.createWorkout({
+                    let workoutId;
+
+                    if (freshActive?.id) {
+                      workoutId = freshActive.id;
+                    } else {
+                      const created = await workoutService.createWorkout({
                         userId: user.id,
                         title: "Workout",
-                    });
-
+                        status: "active",
+                        startedAt: new Date().toISOString(),
+                        finishedAt: null,
+                      });
+                      workoutId = created.id;
+                    }
+                  
                     navigation.navigate("My Workouts", {
-                        screen: "WorkoutDetailsScreen",
-                        params: { workoutId: created.id },
+                      screen: "MyWorkoutsScreen",
+                      params: { openWorkoutId: workoutId },
                     });
-                }}
+                  }}
             >
                 <Text style={styles.startTitle}>
                     {activeWorkout?.id ? "Continue Workout" : "Start Workout"}

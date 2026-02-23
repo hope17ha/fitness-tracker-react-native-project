@@ -57,10 +57,6 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
         }
       }, [workoutId, navigation]);
     
-      useEffect(() => {
-        load();
-      }, [load]);
-    
       useFocusEffect(
         useCallback(() => {
           load();
@@ -140,18 +136,21 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
                     disabled={workout.status === "done"}
                     onPress={async () => {
                         try {
-                            await workoutService.finishWorkout(workout.id);
-                            // refresh
-                            const w = await workoutService.getWorkoutById(
-                                workout.id
-                            );
-                            setWorkout(w);
-                            Alert.alert("Done", "Workout marked as done.");
+                          await workoutService.finishWorkout(workout.id);
+                          const fresh = await workoutService.getWorkoutById(workout.id);
+                    console.log("AFTER FINISH:", fresh.status, fresh.finishedAt);
+                      
+                          Alert.alert("Done", "Workout marked as done.");
+                      
+                          navigation.reset({
+                            index: 0,
+                            routes: [{ name: "MyWorkoutsScreen" }],
+                          });
                         } catch (e) {
-                            console.log(e);
-                            Alert.alert("Error", "Could not finish workout.");
+                          console.log(e);
+                          Alert.alert("Error", "Could not finish workout.");
                         }
-                    }}
+                      }}
                 >
                     <Text style={styles.primaryBtnText}>
                         {workout.status === "done"

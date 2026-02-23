@@ -775,14 +775,102 @@
     },
     {
       "title": "Workout",
-      "status": "active",
+      "status": "done",
       "userId": 2,
       "createdAt": "2026-02-23T15:26:05.981Z",
-      "updatedAt": "2026-02-23T15:26:05.981Z",
+      "updatedAt": "2026-02-23T15:46:44.501Z",
       "startedAt": "2026-02-23T15:26:05.981Z",
-      "finishedAt": null,
+      "finishedAt": "2026-02-23T15:46:44.501Z",
       "exercises": [],
       "id": 7
+    },
+    {
+      "title": "Workout",
+      "status": "done",
+      "userId": 2,
+      "createdAt": "2026-02-23T16:01:17.330Z",
+      "updatedAt": "2026-02-23T16:01:22.036Z",
+      "startedAt": "2026-02-23T16:01:17.330Z",
+      "finishedAt": "2026-02-23T16:01:22.036Z",
+      "exercises": [],
+      "id": 8
+    },
+    {
+      "title": "Workout",
+      "status": "done",
+      "userId": 2,
+      "createdAt": "2026-02-23T16:01:27.175Z",
+      "updatedAt": "2026-02-23T16:08:34.573Z",
+      "startedAt": "2026-02-23T16:01:27.175Z",
+      "finishedAt": "2026-02-23T16:08:34.573Z",
+      "exercises": [],
+      "id": 9
+    },
+    {
+      "title": "Workout",
+      "status": "done",
+      "userId": 2,
+      "createdAt": "2026-02-23T16:08:38.418Z",
+      "updatedAt": "2026-02-23T16:08:54.684Z",
+      "startedAt": "2026-02-23T16:08:38.418Z",
+      "finishedAt": "2026-02-23T16:08:54.684Z",
+      "exercises": [],
+      "id": 10
+    },
+    {
+      "title": "Workout",
+      "status": "done",
+      "userId": 2,
+      "createdAt": "2026-02-23T16:09:05.413Z",
+      "updatedAt": "2026-02-23T16:10:06.279Z",
+      "startedAt": "2026-02-23T16:09:05.413Z",
+      "finishedAt": "2026-02-23T16:10:06.279Z",
+      "exercises": [],
+      "id": 11
+    },
+    {
+      "title": "Workout",
+      "status": "done",
+      "userId": 2,
+      "createdAt": "2026-02-23T16:13:14.013Z",
+      "updatedAt": "2026-02-23T16:13:22.937Z",
+      "startedAt": "2026-02-23T16:13:14.013Z",
+      "finishedAt": "2026-02-23T16:13:22.937Z",
+      "exercises": [],
+      "id": 12
+    },
+    {
+      "title": "Workout",
+      "status": "done",
+      "userId": 2,
+      "createdAt": "2026-02-23T16:13:30.884Z",
+      "updatedAt": "2026-02-23T16:20:41.644Z",
+      "startedAt": "2026-02-23T16:13:30.884Z",
+      "finishedAt": "2026-02-23T16:20:41.644Z",
+      "exercises": [],
+      "id": 13
+    },
+    {
+      "title": "Workout",
+      "status": "done",
+      "userId": 2,
+      "createdAt": "2026-02-23T16:20:47.220Z",
+      "updatedAt": "2026-02-23T16:24:51.726Z",
+      "startedAt": "2026-02-23T16:20:47.220Z",
+      "finishedAt": "2026-02-23T16:24:51.726Z",
+      "exercises": [],
+      "id": 14
+    },
+    {
+      "title": "Workout",
+      "status": "active",
+      "userId": 2,
+      "createdAt": "2026-02-23T16:24:57.174Z",
+      "updatedAt": "2026-02-23T16:24:57.174Z",
+      "startedAt": "2026-02-23T16:24:57.174Z",
+      "finishedAt": null,
+      "exercises": [],
+      "id": 15
     }
   ]
 }

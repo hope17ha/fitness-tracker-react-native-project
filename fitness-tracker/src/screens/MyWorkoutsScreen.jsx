@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import {
     View,
@@ -17,36 +17,45 @@ import {
     minutesBetween,
 } from "../helpers/dateHelpers";
 
-export default function MyWorkoutsScreen({ navigation }) {
+export default function MyWorkoutsScreen({ navigation, route }) {
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [statusFilter, setStatusFilter] = useState("all");
 
     const { user } = useAuth();
 
+    useEffect(() => {
+        const id = route?.params?.openWorkoutId;
+        if (!id) return;
+
+        navigation.navigate("WorkoutDetailsScreen", { workoutId: id });
+        navigation.setParams({ openWorkoutId: undefined });
+    }, [route?.params?.openWorkoutId, navigation]);
+
     const load = useCallback(async () => {
         if (!user?.id) return;
-    
+
         setLoading(true);
         try {
-          const data = await workoutService.getAllWorkoutsByUserId(user.id);
-          setWorkouts(data);
+            const data = await workoutService.getAllWorkoutsByUserId(user.id);
+            setWorkouts(data);
         } catch (error) {
-          Alert.alert("Couldn't load workouts. Try again!");
+            Alert.alert("Couldn't load workouts. Try again!");
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      }, [user?.id]);
-    
-      useFocusEffect(
+    }, [user?.id]);
+
+    useFocusEffect(
         useCallback(() => {
-          load();
+            load();
         }, [load])
-      );
+    );
     const visibleWorkouts =
         statusFilter === "all"
             ? workouts
             : workouts.filter((w) => w.status === statusFilter);
+
     return (
         <ScrollView style={styles.container}>
             {/* Header */}
@@ -356,11 +365,11 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         backgroundColor: "#102235",
         alignItems: "center",
-      },
-      
-      emptyStateTitle: {
+    },
+
+    emptyStateTitle: {
         color: "#fff",
         fontSize: 16,
         fontWeight: "bold",
-      },
+    },
 });
