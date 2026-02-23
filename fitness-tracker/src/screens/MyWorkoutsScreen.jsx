@@ -122,6 +122,16 @@ export default function MyWorkoutsScreen({ navigation }) {
                 </View>
             )}
 
+            {!loading && visibleWorkouts.length === 0 && (
+                <View style={styles.emptyState}>
+                    <Text style={styles.emptyStateTitle}>
+                        {statusFilter === "all"
+                            ? "No workouts yet"
+                            : `No ${statusFilter} workouts`}
+                    </Text>
+                </View>
+            )}
+
             {!loading &&
                 visibleWorkouts.map((workout) => {
                     const mins = minutesBetween(
@@ -341,4 +351,18 @@ const styles = StyleSheet.create({
         color: "#777",
         fontSize: 12,
     },
+    emptyState: {
+        marginTop: 30,
+        marginHorizontal: 24,
+        padding: 20,
+        borderRadius: 16,
+        backgroundColor: "#102235",
+        alignItems: "center",
+      },
+      
+      emptyStateTitle: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
+      },
 });
