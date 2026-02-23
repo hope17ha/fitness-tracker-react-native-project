@@ -714,6 +714,17 @@
           ]
         }
       ]
+    },
+    {
+      "title": "Pull day",
+      "status": "active",
+      "userId": 2,
+      "createdAt": "2026-02-23T14:09:29.633Z",
+      "updatedAt": "2026-02-23T14:09:29.633Z",
+      "startedAt": "2026-02-23T14:09:29.633Z",
+      "finishedAt": null,
+      "exercises": [],
+      "id": 2
     }
   ]
 }
