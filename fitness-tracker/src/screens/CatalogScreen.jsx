@@ -149,6 +149,12 @@ export default function CatalogScreen({ navigation, route }) {
                     <TouchableOpacity
                         style={styles.exerciseCard}
                         key={exercise.id}
+                        onPress={() =>
+                            navigation.navigate("ExerciseDetailsScreen", {
+                              exerciseId: exercise.id,
+                              selectForWorkoutId, 
+                            })
+                          }
                     >
                         <Text style={styles.exerciseName}>{exercise.name}</Text>
                         <Text style={styles.exerciseMeta}>

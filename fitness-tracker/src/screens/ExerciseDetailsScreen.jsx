@@ -17,6 +17,15 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
 
 
   const exerciseId = route?.params?.exerciseId;
+
+  if (!exerciseId) {
+    return (
+      <View>
+        <Text>No exercise selected</Text>
+      </View>
+    );
+  }
+  
   const selectForWorkoutId = route?.params?.selectForWorkoutId;
 
   const [exercise, setExercise] = useState(route?.params || null);
@@ -57,6 +66,8 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
       fetchExercise();
     }, [fetchExercise])
   );
+
+  
 
   const name = exercise?.name;
   const equipment = exercise?.equipment;
