@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  Alert
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useAuth } from "../contexts/auth/useAuth";
@@ -15,17 +16,16 @@ import { exercisesService, workoutService } from "../services";
 export default function ExerciseDetailsScreen({ navigation, route }) {
   const { user } = useAuth();
 
-
   const exerciseId = route?.params?.exerciseId;
 
-  if (!exerciseId) {
+  if (exerciseId === undefined || exerciseId === null) {
     return (
       <View>
         <Text>No exercise selected</Text>
       </View>
     );
   }
-  
+
   const selectForWorkoutId = route?.params?.selectForWorkoutId;
 
   const [exercise, setExercise] = useState(route?.params || null);

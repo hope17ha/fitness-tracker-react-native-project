@@ -82,6 +82,7 @@ export default function CatalogScreen({ navigation, route }) {
                         navigation.navigate("ExerciseListScreen", {
                             muscleGroupId: "chest",
                             title: "Chest",
+                            selectForWorkoutId,
                         })
                     }
                 >

@@ -43,7 +43,7 @@ if (!title.trim()) return Alert.alert("Missing title", "Enter a title.");
               onPress: () => {
                 navigation.getParent()?.navigate("My Workouts", {
                     screen: "WorkoutDetailsScreen",
-                    params: { workoutId: created.id },
+                    params: { workoutId: active.id },
                   });
               },
             },

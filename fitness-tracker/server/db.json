@@ -855,7 +855,7 @@
       "status": "active",
       "userId": 4,
       "createdAt": "2026-02-27T09:22:47.794Z",
-      "updatedAt": "2026-02-27T09:26:10.963Z",
+      "updatedAt": "2026-02-27T09:37:24.941Z",
       "startedAt": "2026-02-27T09:22:47.794Z",
       "finishedAt": null,
       "exercises": [
@@ -883,6 +883,16 @@
           "id": "wex_1772184370963",
           "exerciseId": 23,
           "order": 5
+        },
+        {
+          "id": "wex_1772184726894",
+          "exerciseId": 35,
+          "order": 6
+        },
+        {
+          "id": "wex_1772185044941",
+          "exerciseId": 2,
+          "order": 7
         }
       ],
       "id": 14
