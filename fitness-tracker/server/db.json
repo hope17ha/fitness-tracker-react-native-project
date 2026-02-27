@@ -852,12 +852,12 @@
     },
     {
       "title": "Push dau",
-      "status": "active",
+      "status": "done",
       "userId": 4,
       "createdAt": "2026-02-27T09:22:47.794Z",
-      "updatedAt": "2026-02-27T09:37:24.941Z",
+      "updatedAt": "2026-02-27T09:38:05.591Z",
       "startedAt": "2026-02-27T09:22:47.794Z",
-      "finishedAt": null,
+      "finishedAt": "2026-02-27T09:38:05.591Z",
       "exercises": [
         {
           "id": "wex_1772184246431",

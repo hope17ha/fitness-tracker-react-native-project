@@ -57,7 +57,10 @@ export default function HomeScreen({ navigation }) {
         : null;
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={styles.content}
+        >
             <View style={styles.header}>
                 <Text style={styles.title}>
                     Hello, {user?.username || user?.email}!
@@ -70,7 +73,8 @@ export default function HomeScreen({ navigation }) {
                     <Text style={styles.logoutText}>Logout</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.heroCard}></TouchableOpacity>
+            <View style={styles.body}>
+            <TouchableOpacity style={styles.heroCard} />
 
             <TouchableOpacity
                 style={styles.startCard}
@@ -177,12 +181,14 @@ export default function HomeScreen({ navigation }) {
                     Consistency beats motivation.
                 </Text>
             </View>
+            </View>
         </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: "#0b1c2d" },
+    body: { paddingHorizontal: 24, paddingTop: 18, gap: 14 },
     header: {
         paddingTop: 60,
         paddingHorizontal: 24,
@@ -207,8 +213,7 @@ const styles = StyleSheet.create({
     startCard: {
         backgroundColor: "#4caf50",
         borderRadius: 20,
-        padding: 30,
-        marginTop: 30,
+        padding: 22,
     },
 
     startTitle: {
@@ -224,19 +229,21 @@ const styles = StyleSheet.create({
 
     sectionTitle: {
         color: "#aaa",
-        marginTop: 30,
-        marginBottom: 12,
+        marginTop: 10,
+        marginBottom: 8,
+        fontWeight: "700",
+        letterSpacing: 0.3,
     },
 
     row: {
         flexDirection: "row",
-        justifyContent: "space-between",
+        gap: 12,
     },
 
     smallCard: {
+        flex: 1,
         backgroundColor: "#1c2f44",
-        width: "48%",
-        padding: 20,
+        padding: 18,
         borderRadius: 16,
     },
 
@@ -259,9 +266,8 @@ const styles = StyleSheet.create({
 
     lastWorkout: {
         backgroundColor: "#13263a",
-        padding: 16,
-        borderRadius: 14,
-        padding: 40,
+        borderRadius: 16,
+        padding: 18,
     },
 
     lastName: {
@@ -276,10 +282,10 @@ const styles = StyleSheet.create({
     },
 
     motivation: {
-        marginTop: 30,
-        padding: 30,
-        borderRadius: 14,
+        borderRadius: 16,
         backgroundColor: "#102235",
+        padding: 18,
+        marginTop: 6,
     },
 
     motivationText: {
