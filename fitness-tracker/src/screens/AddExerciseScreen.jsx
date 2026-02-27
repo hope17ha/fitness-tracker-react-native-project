@@ -7,10 +7,13 @@ import {
     TouchableOpacity,
     TextInput,
     Alert,
-    Image
+    Image,
 } from "react-native";
 
-import { pickExerciseImageFromLibrary, takeExerciseImageWithCamera } from "../helpers/imagePicker";
+import {
+    pickExerciseImageFromLibrary,
+    takeExerciseImageWithCamera,
+} from "../helpers/imagePicker";
 import { exercisesService } from "../services";
 import { useAuth } from "../contexts/auth/useAuth";
 
@@ -21,6 +24,11 @@ export default function AddExerciseScreen({ navigation }) {
     const [muscleGroupId, setMuscleGroupId] = useState(null);
     const [equipment, setEquipment] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
+
+
+    const isFormValid =
+    name.trim().length >= 3 &&
+    muscleGroupId && equipment;
 
     const MUSCLE_GROUPS = [
         { id: "chest", label: "Chest" },
@@ -34,17 +42,24 @@ export default function AddExerciseScreen({ navigation }) {
     const EQUIPMENT = ["barbell", "dumbbell", "machine", "cable", "bodyweight"];
 
     const handleSave = async () => {
-        if (!name.trim())
+        const trimmedName = name.trim();
+
+        if (!trimmedName)
             return Alert.alert("Missing name", "Please enter exercise name.");
+        if (trimmedName.length < 3) {
+            return Alert.alert(
+                "Invalid name",
+                "Exercise name must be at least 3 characters."
+            );
+        }
         if (!muscleGroupId)
             return Alert.alert("Missing group", "Please select muscle group.");
         if (!equipment)
             return Alert.alert("Missing equipment", "Please select equipment.");
 
         try {
-
             await exercisesService.createExercise({
-                name: name.trim(),
+                name: trimmedName,
                 muscleGroupId,
                 equipment,
                 imageUrl: imageUrl.trim(),
@@ -61,7 +76,10 @@ export default function AddExerciseScreen({ navigation }) {
         <ScrollView style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
-                <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+                <TouchableOpacity
+                    style={styles.backBtn}
+                    onPress={() => navigation.goBack()}
+                >
                     <Text style={styles.backText}>←</Text>
                 </TouchableOpacity>
 
@@ -153,68 +171,90 @@ export default function AddExerciseScreen({ navigation }) {
                 {/* Preview block (UI only) */}
                 <Text style={styles.label}>Image</Text>
 
-<View style={{ flexDirection: "row", gap: 10 }}>
-  <TouchableOpacity
-    style={[styles.secondaryBtn, { flex: 1, marginTop: 0 }]}
-    onPress={async () => {
-      try {
-        const dataUrl = await pickExerciseImageFromLibrary();
-        if (dataUrl) setImageUrl(dataUrl);
-      } catch (e) {
-        Alert.alert("Permission needed", "Please allow photo library access.");
-      }
-    }}
-  >
-    <Text style={styles.secondaryBtnText}>Pick from gallery</Text>
-  </TouchableOpacity>
+                <View style={{ flexDirection: "row", gap: 10 }}>
+                    <TouchableOpacity
+                        style={[styles.secondaryBtn, { flex: 1, marginTop: 0 }]}
+                        onPress={async () => {
+                            try {
+                                const dataUrl =
+                                    await pickExerciseImageFromLibrary();
+                                if (dataUrl) setImageUrl(dataUrl);
+                            } catch (e) {
+                                Alert.alert(
+                                    "Permission needed",
+                                    "Please allow photo library access."
+                                );
+                            }
+                        }}
+                    >
+                        <Text style={styles.secondaryBtnText}>
+                            Pick from gallery
+                        </Text>
+                    </TouchableOpacity>
 
-  <TouchableOpacity
-    style={[styles.secondaryBtn, { flex: 1, marginTop: 0 }]}
-    onPress={async () => {
-      try {
-        const dataUrl = await takeExerciseImageWithCamera();
-        if (dataUrl) setImageUrl(dataUrl);
-      } catch (e) {
-        Alert.alert("Permission needed", "Please allow camera access.");
-      }
-    }}
-  >
-    <Text style={styles.secondaryBtnText}>Take photo</Text>
-  </TouchableOpacity>
-</View>
+                    <TouchableOpacity
+                        style={[styles.secondaryBtn, { flex: 1, marginTop: 0 }]}
+                        onPress={async () => {
+                            try {
+                                const dataUrl =
+                                    await takeExerciseImageWithCamera();
+                                if (dataUrl) setImageUrl(dataUrl);
+                            } catch (e) {
+                                Alert.alert(
+                                    "Permission needed",
+                                    "Please allow camera access."
+                                );
+                            }
+                        }}
+                    >
+                        <Text style={styles.secondaryBtnText}>Take photo</Text>
+                    </TouchableOpacity>
+                </View>
 
-<View style={styles.preview}>
-  <Text style={styles.previewTitle}>Preview</Text>
+                <View style={styles.preview}>
+                    <Text style={styles.previewTitle}>Preview</Text>
 
-  {imageUrl ? (
-    <Image source={{ uri: imageUrl }} style={styles.previewImage} resizeMode="cover" />
-  ) : (
-    <View style={styles.previewImage} />
-  )}
+                    {imageUrl ? (
+                        <Image
+                            source={{ uri: imageUrl }}
+                            style={styles.previewImage}
+                            resizeMode="cover"
+                        />
+                    ) : (
+                        <View style={styles.previewImage} />
+                    )}
 
-  <Text style={styles.previewHint}>
-    {imageUrl ? "Image selected" : "No image selected"}
-  </Text>
+                    <Text style={styles.previewHint}>
+                        {imageUrl ? "Image selected" : "No image selected"}
+                    </Text>
 
-  {imageUrl ? (
-    <TouchableOpacity
-      style={[styles.dangerBtn, { marginTop: 12 }]}
-      onPress={() => setImageUrl("")}
-    >
-      <Text style={styles.dangerBtnText}>Remove image</Text>
-    </TouchableOpacity>
-  ) : null}
-</View>
+                    {imageUrl ? (
+                        <TouchableOpacity
+                            style={[styles.dangerBtn, { marginTop: 12 }]}
+                            onPress={() => setImageUrl("")}
+                        >
+                            <Text style={styles.dangerBtnText}>
+                                Remove image
+                            </Text>
+                        </TouchableOpacity>
+                    ) : null}
+                </View>
 
                 {/* Actions */}
                 <TouchableOpacity
-                    style={styles.primaryBtn}
+                  style={[
+                    styles.primaryBtn,
+                    !isFormValid && { opacity: 0.5 }
+                  ]}
                     onPress={handleSave}
                 >
                     <Text style={styles.primaryBtnText}>Save Exercise</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.secondaryBtn} onPress={() => navigation.goBack()}>
+                <TouchableOpacity
+                    style={styles.secondaryBtn}
+                    onPress={() => navigation.goBack()}
+                >
                     <Text style={styles.secondaryBtnText}>Cancel</Text>
                 </TouchableOpacity>
             </View>
@@ -235,8 +275,8 @@ const styles = StyleSheet.create({
     },
     headerText: {
         paddingLeft: 52, // 40 (бутон) + 12 spacing
-      },
-      
+    },
+
     backBtn: {
         position: "absolute",
         left: 24,
@@ -403,9 +443,9 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         borderRadius: 12,
         alignItems: "center",
-      },
-      dangerBtnText: {
+    },
+    dangerBtnText: {
         color: "#fff",
         fontWeight: "bold",
-      },
+    },
 });
