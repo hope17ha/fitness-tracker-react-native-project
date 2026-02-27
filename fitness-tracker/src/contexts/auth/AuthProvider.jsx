@@ -1,9 +1,14 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from "expo-secure-store";
 
-import { createContext, use, useEffect, useState } from "react"
+import { createContext, use, useEffect, useMemo, useState } from "react"
 import { authService } from "../../services";
 
 export const AuthContext = createContext();
+const KEYS = {
+    user: "auth_user",
+    token: "auth_token",
+  };
+  
 
 export function AuthProvider ({children}){
 
@@ -14,8 +19,8 @@ export function AuthProvider ({children}){
     useEffect(() => {
         const loadUser = async () => {
           try {
-            const storedUser = await AsyncStorage.getItem("@user");
-            const storedToken = await AsyncStorage.getItem("@token");
+            const storedUser = await SecureStore.getItemAsync(KEYS.user);
+            const storedToken = await SecureStore.getItemAsync(KEYS.token);
     
             if (storedUser && storedToken) {
               setUser(JSON.parse(storedUser));
@@ -23,6 +28,8 @@ export function AuthProvider ({children}){
             }
           } catch (error) {
             console.log("Failed to load user from storage", error);
+            await SecureStore.deleteItemAsync(KEYS.user);
+            await SecureStore.deleteItemAsync(KEYS.token);
           } finally {
             setLoading(false);
           }
@@ -36,27 +43,29 @@ export function AuthProvider ({children}){
         setUser(userData.user);
         setToken(userData.accessToken);
 
-        await AsyncStorage.setItem("@user", JSON.stringify(userData.user));
-        await AsyncStorage.setItem("@token", userData.accessToken);
+        await SecureStore.setItemAsync(KEYS.user, JSON.stringify(userData.user));
+        await SecureStore.setItemAsync(KEYS.token, userData.accessToken);
     }
 
     const logout = async () => {
         setUser(null);
         setToken(null);
-        await AsyncStorage.removeItem("@user");
-        await AsyncStorage.removeItem("@token");
+        await SecureStore.deleteItemAsync(KEYS.user);
+        await SecureStore.deleteItemAsync(KEYS.token);
       };
     
 
 
-    const contextValue = {
-        user,
-        token,
-        isAuthenticated: !!user,
-        login,
-        logout,
-        loading
-    };
+    const contextValue = useMemo(() => (
+        {
+            user,
+            token,
+            isAuthenticated: !!user && !!token,
+            login,
+            logout,
+            loading
+        }
+    ), [user, token, loading]) ;
 
     return (
         <AuthContext.Provider value={contextValue}>
