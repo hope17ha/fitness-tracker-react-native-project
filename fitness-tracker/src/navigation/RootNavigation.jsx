@@ -13,10 +13,13 @@ export default function RootNavigation() {
 
     if (loading) {
         return <SplashScreen />;
-      }
+    }
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            key={isAuthenticated ? "TabNavigation" : "AuthNavigation"}
+        >
             {isAuthenticated ? (
                 <Stack.Screen
                     name="TabNavigation"

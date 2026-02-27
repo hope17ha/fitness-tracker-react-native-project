@@ -849,6 +849,43 @@
       "finishedAt": "2026-02-23T16:20:41.644Z",
       "exercises": [],
       "id": 13
+    },
+    {
+      "title": "Push dau",
+      "status": "active",
+      "userId": 4,
+      "createdAt": "2026-02-27T09:22:47.794Z",
+      "updatedAt": "2026-02-27T09:26:10.963Z",
+      "startedAt": "2026-02-27T09:22:47.794Z",
+      "finishedAt": null,
+      "exercises": [
+        {
+          "id": "wex_1772184246431",
+          "exerciseId": 44,
+          "order": 1
+        },
+        {
+          "id": "wex_1772184272429",
+          "exerciseId": 35,
+          "order": 2
+        },
+        {
+          "id": "wex_1772184289339",
+          "exerciseId": 52,
+          "order": 3
+        },
+        {
+          "id": "wex_1772184365496",
+          "exerciseId": 12,
+          "order": 4
+        },
+        {
+          "id": "wex_1772184370963",
+          "exerciseId": 23,
+          "order": 5
+        }
+      ],
+      "id": 14
     }
   ]
 }

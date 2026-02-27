@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from "@react-navigation/native";
 import {
     View,
     Text,
@@ -7,6 +7,7 @@ import {
     StyleSheet,
     ScrollView,
     ActivityIndicator,
+    Alert,
 } from "react-native";
 import { useAuth } from "../contexts/auth/useAuth";
 import { workoutService } from "../services";
@@ -15,7 +16,7 @@ import { formatDate, minutesBetween } from "../helpers/dateHelpers";
 export default function HomeScreen({ navigation }) {
     const { user, logout } = useAuth();
 
-    const [workout, setWorkout] = useState([]);
+    const [workout, setWorkout] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeWorkout, setActiveWorkout] = useState(null);
 
@@ -24,33 +25,36 @@ export default function HomeScreen({ navigation }) {
     };
 
     useFocusEffect(
-        useCallback (() => {
+        useCallback(() => {
+            let mounted = true;
             async function load() {
-            
                 if (!user?.id) return;
-                let mounted = true;
-                const data = await workoutService.getActiveWorkoutByUserId(user.id);
+                const data = await workoutService.getActiveWorkoutByUserId(
+                    user.id
+                );
                 if (mounted) setActiveWorkout(data);
                 setLoading(true);
                 try {
                     const data = await workoutService.getLastWorkoutByUserId(
                         user.id
-                        );
-                        if (mounted) setWorkout(data);
-                    } catch (error) {
-                        Alert.alert("Couldn't load workouts. Try again!");
-                    } finally {
-                        if (mounted) setLoading(false);
-                    }
-                    return () => {
-                        mounted = false;
-                    };
+                    );
+                    if (mounted) setWorkout(data);
+                } catch (error) {
+                    Alert.alert("Couldn't load workouts. Try again!");
+                } finally {
+                    if (mounted) setLoading(false);
                 }
-       load();
-    }, [user?.id])
+                return () => {
+                    mounted = false;
+                };
+            }
+            load();
+        }, [user?.id])
     );
 
-    const mins = minutesBetween(workout.startedAt, workout.finishedAt);
+    const mins = workout
+        ? minutesBetween(workout.startedAt, workout.finishedAt)
+        : null;
 
     return (
         <ScrollView style={styles.container}>
@@ -73,28 +77,29 @@ export default function HomeScreen({ navigation }) {
                 onPress={async () => {
                     if (!user?.id) return;
 
-                    const freshActive = await workoutService.getActiveWorkoutByUserId(user.id);
+                    const freshActive =
+                        await workoutService.getActiveWorkoutByUserId(user.id);
 
                     let workoutId;
 
                     if (freshActive?.id) {
-                      workoutId = freshActive.id;
+                        workoutId = freshActive.id;
                     } else {
-                      const created = await workoutService.createWorkout({
-                        userId: user.id,
-                        title: "Workout",
-                        status: "active",
-                        startedAt: new Date().toISOString(),
-                        finishedAt: null,
-                      });
-                      workoutId = created.id;
+                        const created = await workoutService.createWorkout({
+                            userId: user.id,
+                            title: "Workout",
+                            status: "active",
+                            startedAt: new Date().toISOString(),
+                            finishedAt: null,
+                        });
+                        workoutId = created.id;
                     }
-                  
+
                     navigation.navigate("My Workouts", {
-                      screen: "MyWorkoutsScreen",
-                      params: { openWorkoutId: workoutId },
+                        screen: "MyWorkoutsScreen",
+                        params: { openWorkoutId: workoutId },
                     });
-                  }}
+                }}
             >
                 <Text style={styles.startTitle}>
                     {activeWorkout?.id ? "Continue Workout" : "Start Workout"}
@@ -128,7 +133,6 @@ export default function HomeScreen({ navigation }) {
                     <Text style={styles.emoji}>💪</Text>
                     <Text style={styles.cardTitle}>My Workouts</Text>
                 </TouchableOpacity>
-                cdf
             </View>
 
             <TouchableOpacity
@@ -144,19 +148,28 @@ export default function HomeScreen({ navigation }) {
             </TouchableOpacity>
 
             {/* Last workout */}
-            <Text style={styles.sectionTitle}>Last workout</Text>
-            {loading && (
-                <View style={styles.loaderBox}>
-                    <ActivityIndicator size="large" color="#4caf50" />
-                    <Text style={styles.loaderText}>Loading workouts...</Text>
+            {!loading && !workout ? (
+                <View style={styles.lastWorkout}>
+                    <Text style={styles.lastName}>No workouts yet</Text>
+                    <Text style={styles.lastMeta}>
+                        Create your first workout to see it here.
+                    </Text>
                 </View>
+            ) : (
+                !!workout && (
+                    <View style={styles.lastWorkout}>
+                        <Text style={styles.lastName}>
+                            {workout.title ?? "Workout"}
+                        </Text>
+                        <Text style={styles.lastMeta}>
+                            {workout.startedAt
+                                ? formatDate(workout.startedAt)
+                                : "—"}{" "}
+                            • {mins ?? "—"} min
+                        </Text>
+                    </View>
+                )
             )}
-            <View style={styles.lastWorkout}>
-                <Text style={styles.lastName}>{workout.title}</Text>
-                <Text style={styles.lastMeta}>
-                    {formatDate(workout.startedAt)} • {mins ?? "—"} min
-                </Text>
-            </View>
 
             {/* Motivation */}
             <View style={styles.motivation}>
