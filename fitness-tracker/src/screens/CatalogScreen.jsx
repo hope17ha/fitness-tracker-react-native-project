@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
     View,
     Text,
@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Alert,
     ActivityIndicator,
+    RefreshControl,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -16,8 +17,8 @@ export default function CatalogScreen({ navigation, route }) {
     const selectForWorkoutId = route?.params?.selectForWorkoutId;
     const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(true);
 
-    //TODO: pagination
     const load = useCallback(async () => {
 
         try {
@@ -36,8 +37,33 @@ export default function CatalogScreen({ navigation, route }) {
         }, [load])
       );
 
+      const onRefresh = useCallback(async () => {
+        setRefreshing(true);
+        try {
+            
+            const data = await exercisesService.getAllExercises();
+            setExercises(data);
+        } catch (error) {
+            Alert.alert("Couldn't refresh exercises.");
+        } finally {
+            setRefreshing(false);
+        }
+    }, []);
+
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container}
+        contentContainerStyle={{ flexGrow: 1 }}
+        bounces
+        alwaysBounceVertical
+        overScrollMode="always"
+        refreshControl={
+            <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                tintColor="#4caf50" // iOS
+                colors={["#4caf50"]} // Android
+            />
+        }>
             {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.title}>Exercise Catalog</Text>
