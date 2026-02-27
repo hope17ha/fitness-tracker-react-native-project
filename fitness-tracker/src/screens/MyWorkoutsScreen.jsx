@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Alert,
     ActivityIndicator,
+    RefreshControl,
 } from "react-native";
 import { workoutService } from "../services";
 import { useAuth } from "../contexts/auth/useAuth";
@@ -20,6 +21,7 @@ import {
 export default function MyWorkoutsScreen({ navigation, route }) {
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
     const [statusFilter, setStatusFilter] = useState("all");
 
     const { user } = useAuth();
@@ -51,13 +53,41 @@ export default function MyWorkoutsScreen({ navigation, route }) {
             load();
         }, [load])
     );
+    const onRefresh = useCallback(async () => {
+
+        setRefreshing(true);
+        try {
+            if (!user?.id) return; 
+            const data = await workoutService.getAllWorkoutsByUserId(user.id);
+            setWorkouts(data);
+        } catch (error) {
+            Alert.alert("Couldn't refresh workouts.");
+        } finally {
+            setRefreshing(false);
+        }
+    }, [user?.id]);
+
     const visibleWorkouts =
         statusFilter === "all"
             ? workouts
             : workouts.filter((w) => w.status === statusFilter);
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={{ flexGrow: 1 }}
+            bounces
+            alwaysBounceVertical
+            overScrollMode="always"
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                    tintColor="#4caf50" // iOS
+                    colors={["#4caf50"]} // Android
+                />
+            }
+        >
             {/* Header */}
             <View style={styles.header}>
                 <Text style={styles.title}>My Workouts</Text>
