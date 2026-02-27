@@ -100,6 +100,10 @@ export default function HomeScreen({ navigation }) {
             style={styles.container}
             contentContainerStyle={styles.content}
         >
+              <ActivityIndicator size="large" color="#4caf50" />
+                <Text style={{ color: "#777", marginTop: 10 }}>
+                    Loading...
+                </Text>
             <View style={styles.header}>
                 <Text style={styles.title}>
                     Hello, {user?.username || user?.email}!
