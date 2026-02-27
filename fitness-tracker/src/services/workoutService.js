@@ -81,3 +81,7 @@ export async function getLastWorkoutByUserId(userId) {
       
         return updated.data;
       }
+
+     export async function deleteWorkout(id) {
+        return api.delete(`/workouts/${id}`); 
+      }

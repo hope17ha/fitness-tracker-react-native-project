@@ -849,34 +849,6 @@
       "finishedAt": "2026-02-23T16:20:41.644Z",
       "exercises": [],
       "id": 13
-    },
-    {
-      "title": "Workout",
-      "status": "done",
-      "userId": 2,
-      "createdAt": "2026-02-23T16:20:47.220Z",
-      "updatedAt": "2026-02-23T16:24:51.726Z",
-      "startedAt": "2026-02-23T16:20:47.220Z",
-      "finishedAt": "2026-02-23T16:24:51.726Z",
-      "exercises": [],
-      "id": 14
-    },
-    {
-      "title": "Workout",
-      "status": "active",
-      "userId": 2,
-      "createdAt": "2026-02-23T16:24:57.174Z",
-      "updatedAt": "2026-02-23T16:25:41.195Z",
-      "startedAt": "2026-02-23T16:24:57.174Z",
-      "finishedAt": null,
-      "exercises": [
-        {
-          "id": "wex_1771863941195",
-          "exerciseId": 34,
-          "order": 1
-        }
-      ],
-      "id": 15
     }
   ]
 }

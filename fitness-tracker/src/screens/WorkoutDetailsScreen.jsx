@@ -25,56 +25,63 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
 
     const load = useCallback(async () => {
         if (!workoutId) return;
-    
+
         setLoading(true);
         try {
-          const w = await workoutService.getWorkoutById(workoutId);
-          setWorkout(w);
-    
-          const ids = (w.exercises || []).map((x) => x.exerciseId);
-          const uniqueIds = [...new Set(ids)];
-    
-          const results = await Promise.all(
-            uniqueIds.map(async (id) => {
-              try {
-                const ex = await exercisesService.getExerciseById(id);
-                return [id, ex];
-              } catch {
-                return [id, null];
-              }
-            })
-          );
-    
-          const map = {};
-          for (const [id, ex] of results) map[id] = ex;
-          setExerciseMap(map);
+            const w = await workoutService.getWorkoutById(workoutId);
+            setWorkout(w);
+
+            const ids = (w.exercises || []).map((x) => x.exerciseId);
+            const uniqueIds = [...new Set(ids)];
+
+            const results = await Promise.all(
+                uniqueIds.map(async (id) => {
+                    try {
+                        const ex = await exercisesService.getExerciseById(id);
+                        return [id, ex];
+                    } catch {
+                        return [id, null];
+                    }
+                })
+            );
+
+            const map = {};
+            for (const [id, ex] of results) map[id] = ex;
+            setExerciseMap(map);
         } catch (e) {
-          console.log(e);
-          Alert.alert("Error", "Could not load workout.");
-          navigation.goBack();
+            console.log(e);
+            Alert.alert("Error", "Could not load workout.");
+            navigation.goBack();
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      }, [workoutId, navigation]);
-    
-      useFocusEffect(
+    }, [workoutId, navigation]);
+
+    useFocusEffect(
         useCallback(() => {
-          load();
+            load();
         }, [load])
-      );
-    
-      if (loading) {
+    );
+
+    if (loading) {
         return (
-          <View style={[styles.container, { justifyContent: "center", alignItems: "center" }]}>
-            <ActivityIndicator size="large" color="#4caf50" />
-            <Text style={{ color: "#777", marginTop: 10 }}>Loading workout...</Text>
-          </View>
+            <View
+                style={[
+                    styles.container,
+                    { justifyContent: "center", alignItems: "center" },
+                ]}
+            >
+                <ActivityIndicator size="large" color="#4caf50" />
+                <Text style={{ color: "#777", marginTop: 10 }}>
+                    Loading workout...
+                </Text>
+            </View>
         );
-      }
-    
-      if (!workout) return null;
-    
-      const mins = minutesBetween(workout.startedAt, workout.finishedAt);
+    }
+
+    if (!workout) return null;
+
+    const mins = minutesBetween(workout.startedAt, workout.finishedAt);
 
     return (
         <ScrollView style={styles.container}>
@@ -136,19 +143,19 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
                     disabled={workout.status === "done"}
                     onPress={async () => {
                         try {
-                          await workoutService.finishWorkout(workout.id);
-                      
-                          Alert.alert("Done", "Workout marked as done.");
-                      
-                          navigation.reset({
-                            index: 0,
-                            routes: [{ name: "MyWorkoutsScreen" }],
-                          });
+                            await workoutService.finishWorkout(workout.id);
+
+                            Alert.alert("Done", "Workout marked as done.");
+
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: "MyWorkoutsScreen" }],
+                            });
                         } catch (e) {
-                          console.log(e);
-                          Alert.alert("Error", "Could not finish workout.");
+                            console.log(e);
+                            Alert.alert("Error", "Could not finish workout.");
                         }
-                      }}
+                    }}
                 >
                     <Text style={styles.primaryBtnText}>
                         {workout.status === "done"
@@ -167,6 +174,50 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
                     }}
                 >
                     <Text style={styles.secondaryBtnText}>+ Add exercise</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.dangerBtn}
+                    onPress={() => {
+                        Alert.alert(
+                            "Delete workout?",
+                            "This action cannot be undone.",
+                            [
+                                { text: "Cancel", style: "cancel" },
+                                {
+                                    text: "Delete",
+                                    style: "destructive",
+                                    onPress: async () => {
+                                        try {
+                                            await workoutService.deleteWorkout(
+                                                workout.id
+                                            );
+                                            Alert.alert(
+                                                "Deleted",
+                                                "Workout deleted."
+                                            );
+
+                                            navigation.reset({
+                                                index: 0,
+                                                routes: [
+                                                    {
+                                                        name: "MyWorkoutsScreen",
+                                                    },
+                                                ],
+                                            });
+                                        } catch (e) {
+                                            console.log(e);
+                                            Alert.alert(
+                                                "Error",
+                                                "Could not delete workout."
+                                            );
+                                        }
+                                    },
+                                },
+                            ]
+                        );
+                    }}
+                >
+                    <Text style={styles.dangerBtnText}>Delete workout</Text>
                 </TouchableOpacity>
             </View>
 
@@ -304,4 +355,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     secondaryBtnText: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+    dangerBtn: {
+        backgroundColor: "#b3261e",
+        paddingVertical: 14,
+        borderRadius: 14,
+        alignItems: "center",
+      },
+      dangerBtnText: { color: "#fff", fontWeight: "bold", fontSize: 15 },
 });
