@@ -137,8 +137,6 @@ export default function WorkoutDetailsScreen({ navigation, route }) {
                     onPress={async () => {
                         try {
                           await workoutService.finishWorkout(workout.id);
-                          const fresh = await workoutService.getWorkoutById(workout.id);
-                    console.log("AFTER FINISH:", fresh.status, fresh.finishedAt);
                       
                           Alert.alert("Done", "Workout marked as done.");
                       

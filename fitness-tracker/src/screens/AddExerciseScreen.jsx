@@ -7,7 +7,10 @@ import {
     TouchableOpacity,
     TextInput,
     Alert,
+    Image
 } from "react-native";
+
+import { pickExerciseImageFromLibrary, takeExerciseImageWithCamera } from "../helpers/imagePicker";
 import { exercisesService } from "../services";
 import { useAuth } from "../contexts/auth/useAuth";
 
@@ -148,13 +151,60 @@ export default function AddExerciseScreen({ navigation }) {
                 </Text>
 
                 {/* Preview block (UI only) */}
-                <View style={styles.preview}>
-                    <Text style={styles.previewTitle}>Preview</Text>
-                    <View style={styles.previewImage} />
-                    <Text style={styles.previewHint}>
-                        Image preview placeholder
-                    </Text>
-                </View>
+                <Text style={styles.label}>Image</Text>
+
+<View style={{ flexDirection: "row", gap: 10 }}>
+  <TouchableOpacity
+    style={[styles.secondaryBtn, { flex: 1, marginTop: 0 }]}
+    onPress={async () => {
+      try {
+        const dataUrl = await pickExerciseImageFromLibrary();
+        if (dataUrl) setImageUrl(dataUrl);
+      } catch (e) {
+        Alert.alert("Permission needed", "Please allow photo library access.");
+      }
+    }}
+  >
+    <Text style={styles.secondaryBtnText}>Pick from gallery</Text>
+  </TouchableOpacity>
+
+  <TouchableOpacity
+    style={[styles.secondaryBtn, { flex: 1, marginTop: 0 }]}
+    onPress={async () => {
+      try {
+        const dataUrl = await takeExerciseImageWithCamera();
+        if (dataUrl) setImageUrl(dataUrl);
+      } catch (e) {
+        Alert.alert("Permission needed", "Please allow camera access.");
+      }
+    }}
+  >
+    <Text style={styles.secondaryBtnText}>Take photo</Text>
+  </TouchableOpacity>
+</View>
+
+<View style={styles.preview}>
+  <Text style={styles.previewTitle}>Preview</Text>
+
+  {imageUrl ? (
+    <Image source={{ uri: imageUrl }} style={styles.previewImage} resizeMode="cover" />
+  ) : (
+    <View style={styles.previewImage} />
+  )}
+
+  <Text style={styles.previewHint}>
+    {imageUrl ? "Image selected" : "No image selected"}
+  </Text>
+
+  {imageUrl ? (
+    <TouchableOpacity
+      style={[styles.dangerBtn, { marginTop: 12 }]}
+      onPress={() => setImageUrl("")}
+    >
+      <Text style={styles.dangerBtnText}>Remove image</Text>
+    </TouchableOpacity>
+  ) : null}
+</View>
 
                 {/* Actions */}
                 <TouchableOpacity
@@ -348,4 +398,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 15,
     },
+    dangerBtn: {
+        backgroundColor: "#e53935",
+        paddingVertical: 12,
+        borderRadius: 12,
+        alignItems: "center",
+      },
+      dangerBtnText: {
+        color: "#fff",
+        fontWeight: "bold",
+      },
 });
