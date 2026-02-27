@@ -45,7 +45,6 @@ export default function ExerciseEditScreen({ navigation, route }) {
 
     const [exercise, setExercise] = useState(null);
 
-
     // form state
     const [name, setName] = useState("");
     const [muscleGroupId, setMuscleGroupId] = useState(null);
@@ -299,9 +298,8 @@ export default function ExerciseEditScreen({ navigation, route }) {
                             const dataUrl =
                                 await pickExerciseImageFromLibrary();
                             if (dataUrl) setImageUrl(dataUrl);
-                        } catch (error) {
-                            console.log("CAMERA ERROR:", error);
-  Alert.alert("Error", error?.message || "Camera failed");
+                        } catch {
+                            Alert.alert("Camera failed");
                         }
                     }}
                 >
@@ -329,6 +327,15 @@ export default function ExerciseEditScreen({ navigation, route }) {
                 >
                     <Text style={styles.secondaryBtnText}>Take photo</Text>
                 </TouchableOpacity>
+                {imageUrl ? (
+                    <Image
+                        source={{ uri: imageUrl }}
+                        style={styles.previewImage}
+                        resizeMode="cover"
+                    />
+                ) : (
+                    <View style={styles.previewImage} />
+                )}
 
                 {/* Actions */}
                 <TouchableOpacity
@@ -461,4 +468,10 @@ const styles = StyleSheet.create({
     btnDisabled: {
         opacity: 0.6,
     },
+    previewImage: {
+        height: 160,
+        borderRadius: 14,
+        backgroundColor: "#1c2f44",
+    },
+
 });
