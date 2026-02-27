@@ -98,7 +98,7 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
           <View style={styles.imagePlaceholder} />
         )}
 
-        <Text style={styles.imageHint}>{imageUrl || "Exercise image placeholder"}</Text>
+        <Text style={styles.imageHint}> {imageUrl ? "Exercise image" : "Exercise image placeholder"}</Text>
       </View>
 
       {/* Quick info */}
