@@ -18,11 +18,12 @@ export async function getLastWorkoutByUserId(userId) {
         return result.data[0] ?? null;
       }
 
-      export async function createWorkout({
-        title,
-        userId,
-    }) {
+      export async function createWorkout(payload) {
+        const { title, userId } = payload;
+        const startedAtValue = payload?.startedAt;
+
         const now = new Date().toISOString();
+        const start = startedAtValue ? new Date(startedAtValue).toISOString() : now;
     
         const result = await api.post("/workouts", {
             title,
@@ -30,7 +31,7 @@ export async function getLastWorkoutByUserId(userId) {
             userId: Number(userId),
             createdAt: now,
             updatedAt: now,
-            startedAt: now,
+            startedAt: start,
             finishedAt: null,
             exercises: []
         });
