@@ -907,6 +907,23 @@
       "finishedAt": "2026-02-27T10:14:42.309Z",
       "exercises": [],
       "id": 15
+    },
+    {
+      "title": "Puuushh",
+      "status": "active",
+      "userId": 4,
+      "createdAt": "2026-02-27T10:21:14.080Z",
+      "updatedAt": "2026-02-27T10:21:19.832Z",
+      "startedAt": "2026-02-27T10:21:14.078Z",
+      "finishedAt": null,
+      "exercises": [
+        {
+          "id": "wex_1772187679832",
+          "exerciseId": 1,
+          "order": 1
+        }
+      ],
+      "id": 16
     }
   ]
 }

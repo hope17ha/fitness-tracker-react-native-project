@@ -8,6 +8,9 @@ import {
     ScrollView,
     ActivityIndicator,
     Alert,
+    Modal,
+    Pressable,
+    TextInput
 } from "react-native";
 import { useAuth } from "../contexts/auth/useAuth";
 import { workoutService } from "../services";
@@ -19,6 +22,9 @@ export default function HomeScreen({ navigation }) {
     const [workout, setWorkout] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeWorkout, setActiveWorkout] = useState(null);
+    const [showNameModal, setShowNameModal] = useState(false);
+    const [workoutTitle, setWorkoutTitle] = useState("Workout");
+    const [starting, setStarting] = useState(false);
 
     const logoutHandler = () => {
         logout();
@@ -56,6 +62,39 @@ export default function HomeScreen({ navigation }) {
         ? minutesBetween(workout.startedAt, workout.finishedAt)
         : null;
 
+    const startOrContinue = async (titleToUse) => {
+        if (!user?.id) return;
+
+        try {
+            setStarting(true);
+
+            const freshActive = await workoutService.getActiveWorkoutByUserId(
+                user.id
+            );
+
+            let workoutId;
+
+            if (freshActive?.id) {
+                workoutId = freshActive.id;
+            } else {
+                const created = await workoutService.createWorkout({
+                    userId: user.id,
+                    title: titleToUse?.trim() || "Workout",
+                    startedAt: new Date().toISOString(),
+                    finishedAt: null,
+                });
+                workoutId = created.id;
+            }
+
+            navigation.navigate("My Workouts", {
+                screen: "MyWorkoutsScreen",
+                params: { openWorkoutId: workoutId },
+            });
+        } finally {
+            setStarting(false);
+        }
+    };
+
     return (
         <ScrollView
             style={styles.container}
@@ -74,113 +113,161 @@ export default function HomeScreen({ navigation }) {
                 </TouchableOpacity>
             </View>
             <View style={styles.body}>
-            <TouchableOpacity style={styles.heroCard} />
+                <TouchableOpacity style={styles.heroCard} />
 
-            <TouchableOpacity
-                style={styles.startCard}
-                onPress={async () => {
-                    if (!user?.id) return;
-
-                    const freshActive =
-                        await workoutService.getActiveWorkoutByUserId(user.id);
-
-                    let workoutId;
-
-                    if (freshActive?.id) {
-                        workoutId = freshActive.id;
-                    } else {
-                        const created = await workoutService.createWorkout({
-                            userId: user.id,
-                            title: "Workout",
-                            status: "active",
-                            startedAt: new Date().toISOString(),
-                            finishedAt: null,
-                        });
-                        workoutId = created.id;
-                    }
-
-                    navigation.navigate("My Workouts", {
-                        screen: "MyWorkoutsScreen",
-                        params: { openWorkoutId: workoutId },
-                    });
-                }}
-            >
-                <Text style={styles.startTitle}>
-                    {activeWorkout?.id ? "Continue Workout" : "Start Workout"}
-                </Text>
-                <Text style={styles.startSub}>
-                    {activeWorkout?.id
-                        ? "Resume your active session"
-                        : "Create a new session"}
-                </Text>
-            </TouchableOpacity>
-
-            {/* Quick actions */}
-            <Text style={styles.sectionTitle}>Quick actions</Text>
-
-            <View style={styles.row}>
                 <TouchableOpacity
-                    style={styles.smallCard}
-                    onPress={() => {
-                        navigation.navigate("Catalog");
-                    }}
-                >
-                    <Text style={styles.emoji}>📚</Text>
-                    <Text style={styles.cardTitle}>Catalog</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.smallCard}
-                    onPress={() => {
-                        navigation.navigate("My Workouts");
-                    }}
-                >
-                    <Text style={styles.emoji}>💪</Text>
-                    <Text style={styles.cardTitle}>My Workouts</Text>
-                </TouchableOpacity>
-            </View>
+                    style={styles.startCard}
+                    onPress={async () => {
+                        if (!user?.id) return;
 
-            <TouchableOpacity
-                style={styles.createCard}
-                onPress={() =>
-                    navigation.navigate("My Workouts", {
-                        screen: "AddWorkoutScreen",
-                    })
-                }
-            >
-                <Text style={styles.emoji}>➕</Text>
-                <Text style={styles.cardTitle}>Create Workout</Text>
-            </TouchableOpacity>
+                        const freshActive =
+                            await workoutService.getActiveWorkoutByUserId(
+                                user.id
+                            );
 
-            {/* Last workout */}
-            {!loading && !workout ? (
-                <View style={styles.lastWorkout}>
-                    <Text style={styles.lastName}>No workouts yet</Text>
-                    <Text style={styles.lastMeta}>
-                        Create your first workout to see it here.
+                        if (freshActive?.id) {
+                            return startOrContinue();
+                        }
+
+                        setWorkoutTitle("Workout");
+                        setShowNameModal(true);
+                    }}
+                    disabled={starting}
+                >
+                    <Text style={styles.startTitle}>
+                        {activeWorkout?.id
+                            ? "Continue Workout"
+                            : "Start Workout"}
                     </Text>
+                    <Text style={styles.startSub}>
+                        {activeWorkout?.id
+                            ? "Resume your active session"
+                            : "Create a new session"}
+                    </Text>
+                </TouchableOpacity>
+                <Modal
+                    visible={showNameModal}
+                    transparent
+                    animationType="fade"
+                    onRequestClose={() => setShowNameModal(false)}
+                >
+                    <Pressable
+                        style={styles.modalBackdrop}
+                        onPress={() => setShowNameModal(false)}
+                    />
+
+                    <View style={styles.modalCard}>
+                        <Text style={styles.modalTitle}>Workout name</Text>
+
+                        <TextInput
+                            value={workoutTitle}
+                            onChangeText={setWorkoutTitle}
+                            placeholder="e.g. Push Day"
+                            placeholderTextColor="#777"
+                            style={styles.modalInput}
+                            autoFocus
+                        />
+
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                gap: 10,
+                                marginTop: 12,
+                            }}
+                        >
+                            <TouchableOpacity
+                                style={[styles.modalBtn, styles.modalBtnGhost]}
+                                onPress={() => setShowNameModal(false)}
+                            >
+                                <Text style={styles.modalBtnGhostText}>
+                                    Cancel
+                                </Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={[
+                                    styles.modalBtn,
+                                    styles.modalBtnPrimary,
+                                ]}
+                                onPress={async () => {
+                                    setShowNameModal(false);
+                                    await startOrContinue(workoutTitle);
+                                }}
+                            >
+                                <Text style={styles.modalBtnPrimaryText}>
+                                    Start
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+
+                {/* Quick actions */}
+                <Text style={styles.sectionTitle}>Quick actions</Text>
+
+                <View style={styles.row}>
+                    <TouchableOpacity
+                        style={styles.smallCard}
+                        onPress={() => {
+                            navigation.navigate("Catalog");
+                        }}
+                    >
+                        <Text style={styles.emoji}>📚</Text>
+                        <Text style={styles.cardTitle}>Catalog</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.smallCard}
+                        onPress={() => {
+                            navigation.navigate("My Workouts");
+                        }}
+                    >
+                        <Text style={styles.emoji}>💪</Text>
+                        <Text style={styles.cardTitle}>My Workouts</Text>
+                    </TouchableOpacity>
                 </View>
-            ) : (
-                !!workout && (
+
+                <TouchableOpacity
+                    style={styles.createCard}
+                    onPress={() =>
+                        navigation.navigate("My Workouts", {
+                            screen: "AddWorkoutScreen",
+                        })
+                    }
+                >
+                    <Text style={styles.emoji}>➕</Text>
+                    <Text style={styles.cardTitle}>Create Workout</Text>
+                </TouchableOpacity>
+
+                {/* Last workout */}
+                {!loading && !workout ? (
                     <View style={styles.lastWorkout}>
-                        <Text style={styles.lastName}>
-                            {workout.title ?? "Workout"}
-                        </Text>
+                        <Text style={styles.lastName}>No workouts yet</Text>
                         <Text style={styles.lastMeta}>
-                            {workout.startedAt
-                                ? formatDate(workout.startedAt)
-                                : "—"}{" "}
-                            • {mins ?? "—"} min
+                            Create your first workout to see it here.
                         </Text>
                     </View>
-                )
-            )}
+                ) : (
+                    !!workout && (
+                        <View style={styles.lastWorkout}>
+                            <Text style={styles.lastName}>
+                                {workout.title ?? "Workout"}
+                            </Text>
+                            <Text style={styles.lastMeta}>
+                                {workout.startedAt
+                                    ? formatDate(workout.startedAt)
+                                    : "—"}{" "}
+                                • {mins ?? "—"} min
+                            </Text>
+                        </View>
+                    )
+                )}
 
-            {/* Motivation */}
-            <View style={styles.motivation}>
-                <Text style={styles.motivationText}>
-                    Consistency beats motivation.
-                </Text>
-            </View>
+                {/* Motivation */}
+                <View style={styles.motivation}>
+                    <Text style={styles.motivationText}>
+                        Consistency beats motivation.
+                    </Text>
+                </View>
             </View>
         </ScrollView>
     );
@@ -307,4 +394,60 @@ const styles = StyleSheet.create({
         color: "#777",
         fontSize: 12,
     },
+    modalBackdrop: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(0,0,0,0.6)",
+      },
+      modalCard: {
+        position: "absolute",
+        left: 20,
+        right: 20,
+        top: "35%",
+        backgroundColor: "#0f2337",
+        borderRadius: 16,
+        padding: 16,
+        borderWidth: 1,
+        borderColor: "#1c2f44",
+      },
+      modalTitle: {
+        color: "#fff",
+        fontWeight: "bold",
+        fontSize: 16,
+      },
+      modalInput: {
+        marginTop: 12,
+        backgroundColor: "#13263a",
+        borderRadius: 14,
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        color: "#fff",
+        borderWidth: 1,
+        borderColor: "#1c2f44",
+      },
+      modalBtn: {
+        flex: 1,
+        paddingVertical: 12,
+        borderRadius: 12,
+        alignItems: "center",
+      },
+      modalBtnGhost: {
+        backgroundColor: "#13263a",
+        borderWidth: 1,
+        borderColor: "#1c2f44",
+      },
+      modalBtnGhostText: {
+        color: "#aaa",
+        fontWeight: "bold",
+      },
+      modalBtnPrimary: {
+        backgroundColor: "#4caf50",
+      },
+      modalBtnPrimaryText: {
+        color: "#fff",
+        fontWeight: "bold",
+      },
 });
