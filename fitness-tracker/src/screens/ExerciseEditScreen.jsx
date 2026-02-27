@@ -110,6 +110,7 @@ export default function ExerciseEditScreen({ navigation, route }) {
         try {
             setSaving(true);
 
+
             const updated = await exercisesService.updateExercise(exerciseId, {
                 name: name.trim(),
                 muscleGroupId,

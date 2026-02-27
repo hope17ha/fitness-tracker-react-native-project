@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
     View,
     Text,
@@ -8,6 +8,8 @@ import {
     Alert,
     ActivityIndicator,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+
 import { exercisesService } from "../services";
 
 export default function CatalogScreen({ navigation, route }) {
@@ -16,20 +18,23 @@ export default function CatalogScreen({ navigation, route }) {
     const [loading, setLoading] = useState(true);
 
     //TODO: pagination
-    useEffect(() => {
-        setLoading(true);
-        async function load() {
-            try {
-                const data = await exercisesService.getAllExercises();
-                setExercises(data);
-            } catch (error) {
-                Alert.alert("Couldn't load exercises. Try again!");
-            } finally {
-                setLoading(false);
-            }
+    const load = useCallback(async () => {
+
+        try {
+            const data = await exercisesService.getAllExercises();
+            setExercises(data);
+        } catch (error) {
+            Alert.alert("Couldn't load exercises. Try again!");
+        } finally {
+            setLoading(false);
         }
-        load();
-    }, []);
+    }, [])
+    
+    useFocusEffect(
+        useCallback(() => {
+          load();
+        }, [load])
+      );
 
     return (
         <ScrollView style={styles.container}>
@@ -40,15 +45,6 @@ export default function CatalogScreen({ navigation, route }) {
                     Browse exercises by muscle group
                 </Text>
             </View>
-
-            {/* Search */}
-            {/* <View style={styles.searchWrapper}>
-        <TextInput
-          placeholder="Search exercises..."
-          placeholderTextColor="#777"
-          style={styles.searchInput}
-        />
-      </View> */}
 
             {/* Muscle groups */}
             <Text style={styles.sectionTitle}>Muscle groups</Text>
@@ -161,30 +157,7 @@ export default function CatalogScreen({ navigation, route }) {
                     </TouchableOpacity>
                 ))}
 
-            {/* <TouchableOpacity style={styles.exerciseCard}>
-        <Text style={styles.exerciseName}>Pull Up</Text>
-        <Text style={styles.exerciseMeta}>Back • Bodyweight</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.exerciseCard}>
-        <Text style={styles.exerciseName}>Back Squat</Text>
-        <Text style={styles.exerciseMeta}>Legs • Barbell</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.exerciseCard}>
-        <Text style={styles.exerciseName}>Overhead Press</Text>
-        <Text style={styles.exerciseMeta}>Shoulders • Barbell</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.exerciseCard}>
-        <Text style={styles.exerciseName}>Barbell Curl</Text>
-        <Text style={styles.exerciseMeta}>Arms • Barbell</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.exerciseCard}>
-        <Text style={styles.exerciseName}>Plank</Text>
-        <Text style={styles.exerciseMeta}>Core • Bodyweight</Text>
-      </TouchableOpacity> */}
+    
 
             {/* Bottom spacing */}
             <View style={{ height: 40 }} />
