@@ -9,6 +9,8 @@ import {
     Alert,
     ActivityIndicator,
     Image,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback,
 } from "react-native";
 
 import {
@@ -174,6 +176,12 @@ export default function ExerciseEditScreen({ navigation, route }) {
     }
 
     return (
+        <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <ScrollView style={styles.container}>
             {/* Header */}
             <View style={styles.header}>
@@ -381,6 +389,8 @@ export default function ExerciseEditScreen({ navigation, route }) {
 
             <View style={{ height: 40 }} />
         </ScrollView>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 }
 
