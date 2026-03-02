@@ -30,6 +30,8 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
 
   const [exercise, setExercise] = useState(route?.params || null);
   const [loading, setLoading] = useState(false);
+  const [workout, setWorkout] = useState(null);
+const [workoutLoading, setWorkoutLoading] = useState(false);
 
   function capitalize(value) {
     if (!value) return "-";
@@ -67,6 +69,24 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
     }, [fetchExercise])
   );
 
+  useEffect(() => {
+    if (!selectForWorkoutId) return;
+  
+    const loadWorkout = async () => {
+      try {
+        setWorkoutLoading(true);
+        const w = await workoutService.getWorkoutById(selectForWorkoutId);
+        setWorkout(w);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setWorkoutLoading(false);
+      }
+    };
+  
+    loadWorkout();
+  }, [selectForWorkoutId]);
+
   
 
   const name = exercise?.name;
@@ -74,6 +94,7 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
   const muscleGroupId = exercise?.muscleGroupId;
   const imageUrl = exercise?.imageUrl; 
   const createdByUserId = exercise?.createdByUserId;
+  const isWorkoutFinished = workout?.status === "done";
 
   return (
     <ScrollView style={styles.container}>
@@ -127,12 +148,19 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
 
       {/* Primary action */}
       <TouchableOpacity
-  style={styles.primaryBtn}
+  style={[
+    styles.primaryBtn,
+    (isWorkoutFinished || workoutLoading) && { opacity: 0.5 },
+  ]}
+  disabled={isWorkoutFinished || workoutLoading}
   onPress={async () => {
     if (!selectForWorkoutId) return;
 
     try {
-      await workoutService.addExerciseToWorkout(selectForWorkoutId, exerciseId);
+      await workoutService.addExerciseToWorkout(
+        selectForWorkoutId,
+        exerciseId
+      );
 
       navigation.getParent()?.navigate("My Workouts", {
         screen: "WorkoutDetailsScreen",
@@ -145,7 +173,11 @@ export default function ExerciseDetailsScreen({ navigation, route }) {
   }}
 >
   <Text style={styles.primaryBtnText}>
-    {selectForWorkoutId ? "Add to workout" : "Add to workout"}
+    {isWorkoutFinished
+      ? "Workout is finished"
+      : workoutLoading
+      ? "Checking workout..."
+      : "Add to workout"}
   </Text>
 </TouchableOpacity>
 
