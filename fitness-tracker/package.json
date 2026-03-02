@@ -6,8 +6,7 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web",
-    "server": "json-server-auth --watch server/db.json --port 3001 -H 0.0.0.0"
+    "web": "expo start --web"
   },
   "dependencies": {
     "@expo/ngrok": "^4.1.0",
@@ -24,8 +23,6 @@
     "expo-secure-store": "~15.0.8",
     "expo-status-bar": "~3.0.9",
     "expo-system-ui": "~6.0.9",
-    "json-server": "^0.17.4",
-    "json-server-auth": "^2.1.0",
     "react": "19.1.0",
     "react-native": "0.81.5",
     "react-native-safe-area-context": "~5.6.0",
